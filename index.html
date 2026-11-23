@@ -270,7 +270,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   <h1>カクテル調合ギミック <span class="light">ガイド</span></h1>
   <p class="tagline">テキーラ45ml、オレンジ90ml、最後にグレナデン15ml。</p>
   <p class="lead">グレナデンは後から注いでも底まで沈み、赤い層になります。テキーラとオレンジの境目だけがグラデーションに広がり、バースプーンで混ぜると1色になります。VRChatのPCワールドに置く調合ギミックで、グラスの中身は注いだ材料と量から毎回計算されます。VRでもDesktopでも同じ操作で作れて、作り方を知らない人はタブレットのオートバーで一杯を頼めます。</p>
-  <p class="stamp small">発売前の版です（2026-11-16時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
+  <p class="stamp small">発売前の版です（2026-11-23時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
   <div class="route">
     <p class="small">ワールドに置く方は導入方法から、ワールドで遊ぶ方は遊び方から読んでください。</p>
     <p class="actions"><a class="mb-btn" href="#install">導入方法を読む</a><a class="mb-btn" href="#controls">遊び方を読む</a></p>
@@ -303,8 +303,24 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <ol class="steps">
   <li><div><h3>ワールドのプロジェクトを開く</h3><p>VCCでSDK、VRC Light Volumes、lilToonが入ったワールドのプロジェクトを開きます。新しく作る場合は、VCCの「World」テンプレートから作ってください。</p></div></li>
   <li><div><h3>unitypackageをインポートする</h3><p>ダウンロードした .unitypackage をUnityのProjectウィンドウへドラッグし、すべてにチェックが入ったままImportを押します。</p></div></li>
-  <li><div><h3>セットを置く</h3><p><code>miyaBase_CocktailMix_Set</code> をシーンへドラッグします。瓶、グラスの棚、道具、レシピ、オートバーのタブレット、リセットのベルが一式入っていて、置くだけで動きます。カウンターの天板に合わせて、セットごと位置と高さを動かしてください。</p>
-    <p class="note"><b>中の物を動かすとき</b>　瓶や道具は個別に動かしてかまいません。グラスの棚は、取ると次の1個が出てくる仕組みになっているので、棚は丸ごと動かしてください。</p></div></li>
+  <li><div><h3>使う物を選んで置く</h3><p><code>Prefabs</code> フォルダから、使いたい瓶・グラス・道具を1つずつシーンへドラッグします。置いた物だけで動きます。つなぎ合わせる設定はありません（Playとアップロードのときに自動でつながります）。</p>
+    <p>最初の1つを置くと、本体 <code>miyaBase_MixCore</code> が自動でシーンに入ります。レシピと、ドライアイスの煙・炎の演出が入っているので、消さないでください。本体はシーンに1つだけ置きます。</p>
+    <table class="ops">
+      <thead><tr><th scope="col">置く物</th><th scope="col">Prefab</th></tr></thead>
+      <tbody>
+      <tr><td>瓶</td><td><code>miyaBase_MixBottle_</code>（ジンは <code>…_Gin</code> など）。同じ瓶を2本置いてもかまいません</td></tr>
+      <tr><td>グラスを1個ずつ</td><td><code>miyaBase_MixGlass_</code>（ハイボールは <code>…_Highball</code> など）。置いた位置が定位置で、ベルや流しで空になってそこへ戻ります</td></tr>
+      <tr><td>グラスの棚</td><td><code>miyaBase_MixGlassStation</code>。21種が予備つきで並び、取ると同じ種類の次の1個が出てきます。棚は丸ごと動かしてください</td></tr>
+      <tr><td>片付け</td><td>ベル <code>miyaBase_MixResetBell</code>、流し <code>miyaBase_MixResetArea_Sink</code></td></tr>
+      <tr><td>オートバー</td><td><code>miyaBase_MixAutoBar</code></td></tr>
+      <tr><td>道具</td><td>シェーカー <code>miyaBase_MixShaker</code>、ミキシンググラス <code>miyaBase_MixMixingGlass</code>、バースプーン、ジガー、ビーカー、トング、氷バケツ、レモン絞り器 など</td></tr>
+      <tr><td>氷・縁・飾り</td><td>丸い氷 <code>miyaBase_MixIceBallBox</code>、ドライアイス <code>miyaBase_MixDryIceBox</code>、塩と砂糖の皿 <code>miyaBase_MixRimPlates</code>、ガーニッシュ <code>miyaBase_MixGarnish_</code> とトレイ <code>miyaBase_MixGarnishTrays</code></td></tr>
+      <tr><td>そのほか</td><td>味と度数の札 <code>miyaBase_MixTasteSwitch</code>、瓶のひな壇 <code>miyaBase_MixBottleStep</code>、果物の板 <code>miyaBase_MixFruitBoard</code>、エリクシルの木箱 <code>miyaBase_MixElixirCase</code>、コースター <code>miyaBase_MixCoaster</code></td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>レシピは置いた物で決まる</b>　材料の瓶とおすすめのグラスがすべて置かれているレシピだけが使われます（グラスに名前が出る、オートバーの一覧に出る）。たとえば瓶をジン、トニック、スコッチ、ソーダにしてハイボールグラスを置くと、ジントニックとハイボールが作れます。</p>
+    <p class="note"><b>組み合わせて使う物</b>　レモンとライムの半分（<code>miyaBase_MixLemonHalf</code> / <code>miyaBase_MixLimeHalf</code>）は、レモン絞り器と、レモン（ライム）ジュースの瓶を置いたときにレシピの材料として数えます。角砂糖を熱い飲み物に溶かすには、シンプルシロップの瓶が要ります。</p>
+    <p class="note"><b>まとめて置いたとき</b>　何個かまとめてドラッグすると同じ場所に重なります。選んだまま Hierarchy で右クリックし、<code>miyaBase</code> → <code>Line Up Selected</code> を選ぶと、最後に選んだ物から一列に並びます。</p></div></li>
   <li><div><h3>注ぐ人を限定するなら、注ぐ許可を置く</h3><p>イベントなどで決まった人だけに作らせたいときは、注ぐ許可を置きます。置かなければ誰でも注げます。手順は<a href="#settings">設定</a>にあります。</p></div></li>
   <li><div><h3>照明を整える</h3><p>カウンターの近くにリフレクションプローブを1つ置き、ライトをベイクしてください。ガラスと液体は、周りの映り込みで見え方が変わります。</p></div></li>
   <li><div><h3>アップロードして、VRとDesktopで試す</h3><p>Build &amp; Publishでアップロードします。瓶を持ってグラスに注げれば導入は完了です。</p></div></li>
@@ -316,13 +332,13 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p>注ぐ許可を置くと、オートバーのタブレットで作れるのも許可のある人だけになります。タブレットは誰でも使えるようにしたいときは、注ぐ許可の <code>Restrict Auto Bar</code> のチェックを外してください。</p>
 <p>注ぐ許可を置いた場合、リセットのベルを押せるのも許可のある人だけです。</p>
 <h3>味と度数の表示の初期値</h3>
-<p>セットの <code>MixBar</code> の Show Taste で決めます。オンなら最初から表示し、遊ぶ人はカウンターの札で自分の画面だけ切り替えられます。</p>
+<p>本体 <code>miyaBase_MixCore</code> の中の <code>_MixBar</code> の Show Taste で決めます。オンなら最初から表示し、遊ぶ人はカウンターの札で自分の画面だけ切り替えられます。</p>
 
 <h2 id="custom">レシピを足す・消す</h2>
 <ol class="steps">
-  <li><div><h3>レシピを複製する</h3><p>Hierarchyでセットの中の <code>Recipes</code> を開き、近いレシピのオブジェクトを複製します。</p></div></li>
-  <li><div><h3>名前と材料を変える</h3><p>Inspectorでカクテル名、使う瓶と割合、作り方（どれでも・シェイク・ステア・ビルド）、おすすめのグラスを設定します。</p></div></li>
-  <li><div><h3>そのままアップロード</h3><p>レシピはPlayとアップロードのときに自動で集められ、オートバーの一覧にも出ます。</p></div></li>
+  <li><div><h3>レシピを複製する</h3><p>Hierarchyで本体 <code>miyaBase_MixCore</code> の中の <code>Recipes</code> を開き、近いレシピのオブジェクトを複製します。</p></div></li>
+  <li><div><h3>名前と材料を変える</h3><p>Inspectorでカクテル名、使う瓶と割合、作り方（どれでも・シェイク・ステア・ビルド）、おすすめのグラスを設定します。瓶とグラスは種類で選びます。まだ置いていない物には「未配置」と出ます。</p></div></li>
+  <li><div><h3>そのままアップロード</h3><p>レシピはPlayとアップロードのときに自動で集められ、オートバーの一覧にも出ます。材料の瓶かおすすめのグラスを置いていないレシピは、自動で外れます。</p></div></li>
 </ol>
 <p>使わないレシピは、オブジェクトを非表示にすれば無効になります。消す必要はありません。</p>
 
@@ -344,7 +360,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <table class="ops">
   <thead><tr><th scope="col">したいこと</th><th scope="col">Desktop</th><th scope="col">VR</th></tr></thead>
   <tbody>
-    <tr><td>グラスを取る</td><td colspan="2" data-l="共通">グラスの棚から取る。取ると同じ種類の次の1個が出てくる</td></tr>
+    <tr><td>グラスを取る</td><td colspan="2" data-l="共通">置いてあるグラスを取る。グラスの棚からなら、取ると同じ種類の次の1個が出てくる</td></tr>
     <tr><td>ひと注ぎ</td><td data-l="Desktop">瓶を持ってグラスを見て、Useを短く押す（量は瓶ごと。スピリッツとジュースは主に45ml、リキュールは10〜30ml、レモン・ライムは20ml、炭酸は90ml、ビターズは3ml など）</td><td class="vr" data-l="VR">Desktopと同じ。または瓶をグラスの上で傾ける</td></tr>
     <tr><td>好きな量を注ぐ</td><td data-l="Desktop">Useを押し続ける。離すまで毎秒20ml注がれる</td><td class="vr" data-l="VR">グラスの上で瓶を傾ける。深く傾けるほど速く出る</td></tr>
     <tr><td>正確に量る</td><td data-l="Desktop">メジャーカップに注ぎ、カップを持ってグラスを見てUse。空のときのUseで45ml側と30ml側を返す</td><td class="vr" data-l="VR">カップに注ぎ、グラスの上で傾ける。逆さにするとこぼれる</td></tr>
@@ -488,7 +504,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 </div>
 <h3>グラス（21種）</h3>
 <p>ポンタルリエ、ビア、ハリケーン、コリンズ、ハイボール、銅のマグ、ロック、アイリッシュコーヒー、ワイン、シャンパンフルート、クープ、マティーニ、マルガリータ、ショット、プースカフェ、ゴシックゴブレット、大釜、ハロウィンクープ、電球、ブーツ、ドクロ。</p>
-<p>グラスは棚に種類ごとに並んでいて、取ると同じ種類の次の1個が出てきます。空のまま30秒置いたグラスは、自動で棚へ戻ります。飲み干すと、氷、飾り、縁の塩や砂糖はグラスから消えます。</p>
+<p>グラスは1個ずつ置くか、棚にまとめて置きます。棚では種類ごとに並んでいて、取ると同じ種類の次の1個が出てきます。棚のグラスは、空のまま30秒置くと自動で棚へ戻ります。1個ずつ置いたグラスは、ベルか流しで置いた位置へ戻ります。飲み干すと、氷、飾り、縁の塩や砂糖はグラスから消えます。</p>
 <h3>ガーニッシュ（13種）</h3>
 <div class="split">
 <p>レモン、レモンピール、オレンジ、オレンジピール、ライムの輪切り、チェリー、ミント、オリーブ、カクテルオニオン、ブルーベリー、きゅうり、ローズマリー、シナモン。種類ごとのトレイに載っていて、取ってもなくなりません。</p>
@@ -517,6 +533,10 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   <dd>仕様です。瓶やグラスは重力なしで、手を離した位置にとどまります。ベルを押すと元の場所へ戻ります。</dd>
   <dt>グラスが棚に出てこない、オートバーでグラスが出ない</dt>
   <dd>同じ種類のグラスが全部使われています。流し台で片付けるか、ベルを押してください。</dd>
+  <dt>レシピの名前が出ない、オートバーの一覧に出ないレシピがある</dt>
+  <dd>そのレシピの材料の瓶か、おすすめのグラスがシーンに置かれていません。置くと、次のPlay・アップロードから使えます。自分で保存したレシピも、瓶が足りないワールドでは一覧に出ません（保存した内容は消えません）。</dd>
+  <dt>「MixBar が 2 個あります」と出る</dt>
+  <dd>本体 <code>miyaBase_MixCore</code> がシーンに2つあります。1つを消してください。</dd>
 </dl>
 
 <h2 id="license">利用規約・サポート</h2>
