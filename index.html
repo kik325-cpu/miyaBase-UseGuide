@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="miyaBase カクテル調合ギミックの導入方法と遊び方">
+<link rel="icon" href="img/miyaBase-mark.svg" type="image/svg+xml">
+<title>カクテル調合ギミック ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;600;700&display=swap">
+<style>
+/* miyaBase design system: black and white only, no accent colour, no shadows, square corners.
+   Layout: PC is a sticky contents column on the left and a reading column of about 40 Japanese characters.
+   Phone is one column under a sticky bar naming the current section, which opens the contents.
+   2026-11-14: restructured by reader (world authors / players) and moved onto the miyaBase tokens. */
+:root{
+  --black:#0a0a0a; --white:#fafafa;
+  --paper:#fafafa; --surface-raised:#ededed; --ink:#0a0a0a; --ink-muted:#5c5c5c;
+  --line:#d4d4d4; --line-strong:#8f8f8f; --focus:var(--ink);
+  --logo-light:block; --logo-dark:none;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-12:48px;
+  --radius-none:0; --radius-sm:4px; --radius-full:9999px;
+  --font-sans:"Nunito Sans","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --font-code:ui-monospace,Menlo,Consolas,monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --bar-h:52px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0a0a0a; --surface-raised:#1c1c1c; --ink:#fafafa; --ink-muted:#a3a3a3;
+    --line:#3d3d3d; --line-strong:#6b6b6b;
+    --logo-light:none; --logo-dark:block;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0a0a0a; --surface-raised:#1c1c1c; --ink:#fafafa; --ink-muted:#a3a3a3;
+  --line:#3d3d3d; --line-strong:#6b6b6b;
+  --logo-light:none; --logo-dark:block;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;font-size:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-sans);
+  font-size:.9375rem;line-height:1.5rem;font-weight:400;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px;touch-action:manipulation}
+@media (hover:hover) and (pointer:fine){a:hover{text-decoration-thickness:2px}}
+a:focus-visible,summary:focus-visible,input:focus-visible,.mb-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* ---- components (from the miyaBase bundle) */
+.mb-btn{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;height:40px;padding:0 var(--space-4);
+  font:inherit;font-size:14px;line-height:20px;font-weight:600;text-decoration:none;border:1px solid var(--line-strong);
+  border-radius:var(--radius-none);background:var(--paper);color:var(--ink);cursor:pointer;touch-action:manipulation}
+@media (hover:hover) and (pointer:fine){.mb-btn:hover{background:var(--surface-raised)}}
+.mb-btn:active{background:var(--surface-raised)}
+.mb-tag{display:inline-block;box-sizing:border-box;padding:var(--space-1) var(--space-2);font-size:.75rem;line-height:1rem;font-weight:600;
+  letter-spacing:.04em;border:1px solid var(--line-strong);border-radius:var(--radius-sm);color:var(--ink);white-space:nowrap}
+.mb-tag-solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.mb-tag-subtle{background:var(--surface-raised);border-color:var(--surface-raised)}
+
+/* ---- layout */
+.wrap{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:13rem minmax(0,1fr);gap:var(--space-12);padding-block:var(--space-12) 96px}
+main{min-width:0;max-width:720px}
+.logo{margin:0 0 var(--space-12)}
+.logo img{height:40px;width:auto;max-width:none}
+.logo .logo-l{display:var(--logo-light)}
+.logo .logo-d{display:var(--logo-dark)}
+
+/* ---- contents (PC): sticky, the current section in ink with an ink rule */
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--space-6));align-self:start;
+  max-height:calc(100vh - 48px);overflow-y:auto;overscroll-behavior:contain;padding-right:var(--space-1)}
+nav.toc>p{font-size:.75rem;line-height:1rem;font-weight:600;letter-spacing:.04em;margin:0 0 var(--space-3);color:var(--ink)}
+.toc-list{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.toc-list li.part{margin:var(--space-6) 0 var(--space-2);font-size:.75rem;line-height:1rem;letter-spacing:.04em;color:var(--ink-muted);font-weight:600}
+.toc-list li.part:first-child{margin-top:0}
+.toc-list a{color:var(--ink-muted);text-decoration:none;display:block;font-size:.8125rem;line-height:1.25rem;
+  padding:var(--space-1) 0 var(--space-1) var(--space-3);border-left:2px solid var(--line);
+  transition:color 150ms ease,border-color 150ms ease;user-select:none;-webkit-user-select:none}
+.toc-list a[aria-current="true"]{color:var(--ink);border-left-color:var(--ink);font-weight:600}
+@media (hover:hover) and (pointer:fine){.toc-list a:hover{color:var(--ink)}}
+
+/* ---- contents (phone): a bar that names where you are and opens the list */
+.mbar{display:none}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:0;padding-block:0 64px}
+  nav.toc{display:none}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+  .mbar{display:block;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;
+    margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+    background:var(--paper);border-bottom:1px solid var(--line)}
+  .mbar summary{list-style:none;display:flex;align-items:center;gap:var(--space-3);min-height:var(--bar-h);cursor:pointer;
+    padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+    user-select:none;-webkit-user-select:none;touch-action:manipulation}
+  .mbar summary::-webkit-details-marker{display:none}
+  .mbar summary:active{background:var(--surface-raised)}
+  .mbar .k{font-size:.75rem;line-height:1rem;letter-spacing:.04em;color:var(--ink-muted);font-weight:600;flex:none}
+  .mbar .cur{flex:1;min-width:0;font-weight:600;font-size:.9375rem;line-height:1.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .chev{flex:none;width:10px;height:10px;border-right:2px solid var(--ink-muted);border-bottom:2px solid var(--ink-muted);
+    transform:translateY(-3px) rotate(45deg);transition:transform 200ms var(--ease-out)}
+  .mbar[open] .chev{transform:translateY(2px) rotate(-135deg)}
+  .mbar .sheet{max-height:min(70vh,520px);overflow-y:auto;overscroll-behavior:contain;border-top:1px solid var(--line);
+    padding:var(--space-4) max(16px,env(safe-area-inset-right,0px)) var(--space-4) max(16px,env(safe-area-inset-left,0px));background:var(--paper)}
+  .mbar[open] .sheet{animation:sheet-in 200ms var(--ease-out)}
+  .mbar .toc-list a{font-size:.9375rem;line-height:1.5rem;padding-block:var(--space-2)}
+  main{padding-top:var(--space-8)}
+  main h2,main h3,main header.hero{scroll-margin-top:calc(env(safe-area-inset-top,0px) + var(--bar-h) + 12px)}
+}
+@keyframes sheet-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.mbar[open] .sheet{animation:fade-in 150ms ease}.mbar .chev,.toc-list a{transition:none}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+
+/* ---- type: display / heading / subheading / body / small / label only */
+h1,h2,h3{text-wrap:balance;color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:var(--space-2);margin:0 0 var(--space-6);padding:0}
+header.hero h1{font-size:clamp(1.875rem,1.1rem + 3.4vw,3rem);line-height:1.1667;font-weight:700;margin:0;letter-spacing:0;word-break:keep-all;overflow-wrap:anywhere}
+header.hero h1 .light{font-weight:300}
+header.hero .tagline{font-size:1.25rem;line-height:1.75rem;font-weight:600;margin:var(--space-4) 0 0}
+header.hero .lead{margin:var(--space-4) 0 0}
+header.hero .stamp{margin:var(--space-3) 0 0}
+.small{font-size:.8125rem;line-height:1.25rem;color:var(--ink-muted)}
+.route{margin:var(--space-8) 0 0}
+.route p{margin:0 0 var(--space-3)}
+.actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+header.hero figure{margin-top:var(--space-8)}
+h2{font-size:1.75rem;line-height:2.25rem;font-weight:700;margin:var(--space-12) 0 var(--space-4);scroll-margin-top:20px}
+h3{font-size:1.25rem;line-height:1.75rem;font-weight:600;margin:var(--space-8) 0 var(--space-2);scroll-margin-top:20px}
+@media (max-width:640px){h2{font-size:1.5rem;line-height:2rem}}
+p{margin:0 0 var(--space-4)}
+.part-h{margin:96px 0 0;padding-bottom:var(--space-2);border-bottom:1px solid var(--line);
+  font-size:.75rem;line-height:1rem;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.part-h+h2{margin-top:var(--space-8)}
+figure{margin:0}
+figure img{display:block;width:100%;height:auto;border-radius:var(--radius-none);border:1px solid var(--line)}
+figcaption{font-size:.8125rem;line-height:1.25rem;color:var(--ink-muted);margin-top:var(--space-2)}
+.three{list-style:none;padding:0;margin:var(--space-8) 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6)}
+@media (max-width:640px){.three{grid-template-columns:minmax(0,1fr);gap:var(--space-4)}}
+.three li{border-top:1px solid var(--ink);padding-top:var(--space-3);min-width:0}
+.three b{display:block;font-size:.9375rem;line-height:1.5rem;font-weight:700;margin-bottom:var(--space-1)}
+.three span{display:block;font-size:.875rem;line-height:1.375rem;color:var(--ink-muted)}
+ul.plain{margin:0 0 var(--space-4);padding-left:1.2em}
+ul.plain li{margin-bottom:var(--space-2)}
+ul.plain li::marker{color:var(--ink-muted)}
+
+/* steps: a real sequence, numbered in a solid square like the seal */
+.steps{list-style:none;counter-reset:s;padding:0;margin:var(--space-3) 0 0;display:grid;gap:var(--space-6)}
+.steps>li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--space-3)}
+.steps>li::before{content:counter(s);width:28px;height:28px;border-radius:var(--radius-none);background:var(--ink);color:var(--paper);
+  font-family:"Nunito Sans",var(--font-sans);font-weight:700;font-size:13px;line-height:1;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.steps>li>div{min-width:0}
+.steps h3{font-size:.9375rem;line-height:1.5rem;font-weight:700;margin:2px 0 var(--space-1)}
+.steps p{margin:0 0 var(--space-2)}
+code{font-family:var(--font-code);font-size:13px;letter-spacing:0;background:var(--surface-raised);border-radius:var(--radius-sm);padding:1px 5px;overflow-wrap:anywhere}
+.note{background:var(--surface-raised);border-radius:var(--radius-none);padding:var(--space-3) var(--space-4);
+  font-size:.8125rem;line-height:1.25rem;color:var(--ink);margin:var(--space-4) 0}
+.note b{color:var(--ink);font-weight:700}
+
+/* ---- tables */
+.tbl{overflow-x:auto;margin:var(--space-3) 0 var(--space-6);border:1px solid var(--line);border-radius:var(--radius-none);background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;line-height:1.5rem}
+th,td{text-align:left;vertical-align:top;padding:var(--space-3);border-bottom:1px solid var(--line)}
+thead th{font-size:.75rem;line-height:1rem;letter-spacing:.04em;color:var(--ink);font-weight:600;background:var(--surface-raised);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+.ops td:first-child{font-weight:700;white-space:nowrap}
+.ops td{min-width:170px}
+.ops td:first-child{min-width:0}
+.icet td:first-child{font-weight:700}
+.icet td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+/* phones: each row becomes a small block instead of a sideways-scrolling table */
+@media (max-width:640px){
+  .tbl.stack{overflow:visible}
+  .stack thead{display:none}
+  .stack table,.stack tbody{display:block}
+  .stack tr{display:block;padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--line)}
+  .stack tr:last-child{border-bottom:0}
+  .stack td{display:block;padding:0;border:0;min-width:0;white-space:normal}
+  .ops td:first-child{margin-bottom:var(--space-1)}
+  .ops td[data-l]{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:var(--space-2);padding-block:2px}
+  .ops td[data-l]::before{content:attr(data-l);font-size:.75rem;line-height:1rem;letter-spacing:.04em;color:var(--ink-muted);font-weight:600;padding-top:.25rem}
+}
+
+
+.bottles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--space-4) var(--space-6);margin:var(--space-4) 0}
+.bottles div{min-width:0}
+.bottles h4{margin:0 0 var(--space-1);font-size:.75rem;line-height:1rem;font-weight:600;letter-spacing:.04em;color:var(--ink)}
+.bottles p{margin:0}
+.gravity{display:flex;align-items:stretch;margin:var(--space-3) 0 var(--space-1);border:1px solid var(--line);border-radius:var(--radius-none)}
+.gravity div{flex:1;padding:var(--space-2) var(--space-1);font-size:.8125rem;line-height:1.25rem;color:var(--ink-muted);text-align:center;
+  background:var(--paper);border-right:1px solid var(--line);min-width:0}
+.gravity div:last-child{border-right:0}
+.gravity b{display:block;font-size:.9375rem;line-height:1.5rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+@media (max-width:480px){.gravity{flex-wrap:wrap}.gravity div{flex:1 1 33%;border-bottom:1px solid var(--line)}
+  .gravity div:nth-child(3n){border-right:0}.gravity div:nth-last-child(-n+3){border-bottom:0}}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--space-6);align-items:start;margin:var(--space-3) 0}
+@media (max-width:640px){.split{grid-template-columns:minmax(0,1fr)}}
+dl.faq{margin:0}
+dl.faq dt{font-weight:700;margin-top:var(--space-6)}
+dl.faq dt:first-child{margin-top:0}
+dl.faq dd{margin:var(--space-1) 0 0}
+footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--line);font-size:.8125rem;line-height:1.25rem;color:var(--ink-muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<nav class="toc" aria-label="目次">
+  <p>目次</p>
+  <ol class="toc-list">
+    <li class="part">概要</li>
+    <li><a href="#about">はじめに</a></li>
+    <li><a href="#env">動作環境</a></li>
+    <li class="part">ワールドに置く（購入した方へ）</li>
+    <li><a href="#install">導入方法</a></li>
+    <li><a href="#settings">設定</a></li>
+    <li><a href="#custom">レシピを足す・消す</a></li>
+    <li><a href="#multi">複数人で使うとき</a></li>
+    <li class="part">遊ぶ（ワールドに来た方へ）</li>
+    <li><a href="#controls">操作の早見表</a></li>
+    <li><a href="#autobar">オートバー（タブレット）</a></li>
+    <li><a href="#myrecipe">自分のレシピを作る</a></li>
+    <li><a href="#liquid">液体のしくみ</a></li>
+    <li><a href="#special">特別な作り方</a></li>
+    <li><a href="#names">名前・味・度数</a></li>
+    <li class="part">一覧</li>
+    <li><a href="#iceglass">グラスと氷の対応表</a></li>
+    <li><a href="#bottles">瓶・グラス・道具</a></li>
+    <li class="part">困ったとき</li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#license">利用規約・サポート</a></li>
+  </ol>
+</nav>
+<details class="mbar" id="mbar">
+  <summary aria-label="目次を開く"><span class="k">目次</span><span class="cur" id="mcur">はじめに</span><span class="chev" aria-hidden="true"></span></summary>
+  <nav class="sheet" aria-label="目次">
+    <ol class="toc-list">
+      <li class="part">概要</li>
+      <li><a href="#about">はじめに</a></li>
+      <li><a href="#env">動作環境</a></li>
+      <li class="part">ワールドに置く（購入した方へ）</li>
+      <li><a href="#install">導入方法</a></li>
+      <li><a href="#settings">設定</a></li>
+      <li><a href="#custom">レシピを足す・消す</a></li>
+      <li><a href="#multi">複数人で使うとき</a></li>
+      <li class="part">遊ぶ（ワールドに来た方へ）</li>
+      <li><a href="#controls">操作の早見表</a></li>
+      <li><a href="#autobar">オートバー（タブレット）</a></li>
+      <li><a href="#myrecipe">自分のレシピを作る</a></li>
+      <li><a href="#liquid">液体のしくみ</a></li>
+      <li><a href="#special">特別な作り方</a></li>
+      <li><a href="#names">名前・味・度数</a></li>
+      <li class="part">一覧</li>
+      <li><a href="#iceglass">グラスと氷の対応表</a></li>
+      <li><a href="#bottles">瓶・グラス・道具</a></li>
+      <li class="part">困ったとき</li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#license">利用規約・サポート</a></li>
+    </ol>
+  </nav>
+</details>
+
+<main>
+<p class="logo"><img class="logo-l" src="img/miyaBase-lockup-on-light.png" alt="miyaBase" width="1145" height="408"><img class="logo-d" src="img/miyaBase-lockup-on-dark.png" alt="miyaBase" width="1145" height="408"></p>
+
+<header class="hero" id="about">
+  <p class="tags"><span class="mb-tag mb-tag-solid">下書き</span> <span class="mb-tag">PC専用</span> <span class="mb-tag">VR / DESKTOP</span> <span class="mb-tag">UNITY 2022.3</span></p>
+  <h1>カクテル調合ギミック <span class="light">ガイド</span></h1>
+  <p class="tagline">テキーラ45ml、オレンジ90ml、最後にグレナデン15ml。</p>
+  <p class="lead">グレナデンは後から注いでも底まで沈み、赤い層になります。テキーラとオレンジの境目だけがグラデーションに広がり、バースプーンで混ぜると1色になります。VRChatのPCワールドに置く調合ギミックで、グラスの中身は注いだ材料と量から毎回計算されます。VRでもDesktopでも同じ操作で作れて、作り方を知らない人はタブレットのオートバーで一杯を頼めます。</p>
+  <p class="stamp small">発売前の版です（2026-11-16時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
+  <div class="route">
+    <p class="small">ワールドに置く方は導入方法から、ワールドで遊ぶ方は遊び方から読んでください。</p>
+    <p class="actions"><a class="mb-btn" href="#install">導入方法を読む</a><a class="mb-btn" href="#controls">遊び方を読む</a></p>
+  </div>
+  <figure>
+    <img src="img/gradient.jpg" alt="テキーラ・サンライズを注いだ直後、広がる途中、1分後の3枚。底の赤い層の境目はくっきりしたまま、透明なテキーラとオレンジの境目だけがグラデーションに広がる" width="1420" height="900">
+    <figcaption>注いだだけのテキーラ・サンライズ。底のグレナデンの境目はくっきり残り、テキーラの上に載ったオレンジジュースの境目だけがグラデーションに広がります。混ぜない限り1色にはなりません。</figcaption>
+  </figure>
+  <ul class="three">
+    <li><b>傾けた分だけ注げる</b><span>瓶を深く傾けるほど速く注がれます。メジャーカップで45mlと30mlを量ることもできます。</span></li>
+    <li><b>液体が本当に混ざる</b><span>注いだ順に層が積もり、重いリキュールは沈みます。シェイクすると泡と濁りが出て、ステアなら透明なまま混ざります。</span></li>
+    <li><b>Desktopでも作る側に回れる</b><span>注ぐ、量る、振る、混ぜる、絞る、氷を入れるを、VRでなくてもUseの短押しと長押しで操作できます。</span></li>
+  </ul>
+</header>
+
+<p class="part-h">概要</p>
+
+<h2 id="env">動作環境</h2>
+<ul class="plain">
+  <li>VRChatのPC版（Windows）専用です。ガラスの屈折にGrabPassを使うため、Quest・Android・iOSでは動きません。</li>
+  <li>Unity 2022.3.22f1、VRChat SDK - Worlds 3.10.5（UdonSharpを含む）で動作確認しています。</li>
+  <li>VRC Light VolumesとlilToon（どちらもVCCから導入）が必要です。Light Volumesが入っていないとガラスと液体が、lilToonが入っていないと瓶のラベルと金属の道具が表示されません。VRC Light Volumes 2.1.3、lilToon 2.3.4で確認しています。</li>
+  <li>このパッケージだけで動きます。ワールド版のカクテルギミックは要りません。</li>
+  <li>操作はVRとDesktopの両方に対応しています。</li>
+</ul>
+
+<p class="part-h">ワールドに置く（購入した方へ）</p>
+
+<h2 id="install">導入方法</h2>
+<ol class="steps">
+  <li><div><h3>ワールドのプロジェクトを開く</h3><p>VCCでSDK、VRC Light Volumes、lilToonが入ったワールドのプロジェクトを開きます。新しく作る場合は、VCCの「World」テンプレートから作ってください。</p></div></li>
+  <li><div><h3>unitypackageをインポートする</h3><p>ダウンロードした .unitypackage をUnityのProjectウィンドウへドラッグし、すべてにチェックが入ったままImportを押します。</p></div></li>
+  <li><div><h3>セットを置く</h3><p><code>miyaBase_CocktailMix_Set</code> をシーンへドラッグします。瓶、グラスの棚、道具、レシピ、オートバーのタブレット、リセットのベルが一式入っていて、置くだけで動きます。カウンターの天板に合わせて、セットごと位置と高さを動かしてください。</p>
+    <p class="note"><b>中の物を動かすとき</b>　瓶や道具は個別に動かしてかまいません。グラスの棚は、取ると次の1個が出てくる仕組みになっているので、棚は丸ごと動かしてください。</p></div></li>
+  <li><div><h3>注ぐ人を限定するなら、注ぐ許可を置く</h3><p>イベントなどで決まった人だけに作らせたいときは、注ぐ許可を置きます。置かなければ誰でも注げます。手順は<a href="#settings">設定</a>にあります。</p></div></li>
+  <li><div><h3>照明を整える</h3><p>カウンターの近くにリフレクションプローブを1つ置き、ライトをベイクしてください。ガラスと液体は、周りの映り込みで見え方が変わります。</p></div></li>
+  <li><div><h3>アップロードして、VRとDesktopで試す</h3><p>Build &amp; Publishでアップロードします。瓶を持ってグラスに注げれば導入は完了です。</p></div></li>
+</ol>
+
+<h2 id="settings">設定</h2>
+<h3>注ぐ人を限定する</h3>
+<p>注ぐ許可（Prefab <code>miyaBase_MixPourPermission</code>）をシーンに置き、注げる人の表示名を登録します。インスタンスのオーナーは、登録しなくても注げます。注ぐ許可を置かなければ、誰でも注げる状態です。飲むのは誰でもかまいません。</p>
+<p>注ぐ許可を置くと、オートバーのタブレットで作れるのも許可のある人だけになります。タブレットは誰でも使えるようにしたいときは、注ぐ許可の <code>Restrict Auto Bar</code> のチェックを外してください。</p>
+<p>注ぐ許可を置いた場合、リセットのベルを押せるのも許可のある人だけです。</p>
+<h3>味と度数の表示の初期値</h3>
+<p>セットの <code>MixBar</code> の Show Taste で決めます。オンなら最初から表示し、遊ぶ人はカウンターの札で自分の画面だけ切り替えられます。</p>
+
+<h2 id="custom">レシピを足す・消す</h2>
+<ol class="steps">
+  <li><div><h3>レシピを複製する</h3><p>Hierarchyでセットの中の <code>Recipes</code> を開き、近いレシピのオブジェクトを複製します。</p></div></li>
+  <li><div><h3>名前と材料を変える</h3><p>Inspectorでカクテル名、使う瓶と割合、作り方（どれでも・シェイク・ステア・ビルド）、おすすめのグラスを設定します。</p></div></li>
+  <li><div><h3>そのままアップロード</h3><p>レシピはPlayとアップロードのときに自動で集められ、オートバーの一覧にも出ます。</p></div></li>
+</ol>
+<p>使わないレシピは、オブジェクトを非表示にすれば無効になります。消す必要はありません。</p>
+
+<h2 id="multi">複数人で使うとき</h2>
+<ul class="plain">
+  <li>瓶の位置、グラスの中身、氷、飾り、縁は全員の画面で同じになります。注いでいる液体の流れや泡は、各自の画面で計算して表示します。</li>
+  <li>2人が同じグラスへ同時に注いだときは、2人の分が順番に入ります。</li>
+  <li>別の人がグラスに注いでも、そのグラスは持っている人の手に残ります。</li>
+  <li>後から入室した人にも、そのときのグラスの中身が表示されます。</li>
+  <li>オートバーの演出は全員に同じように見えます。作っている人が途中で退出しても、一杯は最後まで作られます。</li>
+  <li>ベルの音は全員に聞こえます。元に戻るのは、動かした物と中身の入った物だけです。</li>
+</ul>
+
+<p class="part-h">遊ぶ（ワールドに来た方へ）</p>
+
+<h2 id="controls">操作の早見表</h2>
+<p>VRでは、握っている間だけ物を持ちます。Desktopでは、クリックで持った物は離す操作をするまで手に残り、目の前に浮きます。Desktopで注ぐときはカウンターの前に立ち、瓶から横に50cm以内にあるグラスを見てUseしてください。</p>
+<div class="tbl stack">
+<table class="ops">
+  <thead><tr><th scope="col">したいこと</th><th scope="col">Desktop</th><th scope="col">VR</th></tr></thead>
+  <tbody>
+    <tr><td>グラスを取る</td><td colspan="2" data-l="共通">グラスの棚から取る。取ると同じ種類の次の1個が出てくる</td></tr>
+    <tr><td>ひと注ぎ</td><td data-l="Desktop">瓶を持ってグラスを見て、Useを短く押す（量は瓶ごと。スピリッツとジュースは主に45ml、リキュールは10〜30ml、レモン・ライムは20ml、炭酸は90ml、ビターズは3ml など）</td><td class="vr" data-l="VR">Desktopと同じ。または瓶をグラスの上で傾ける</td></tr>
+    <tr><td>好きな量を注ぐ</td><td data-l="Desktop">Useを押し続ける。離すまで毎秒20ml注がれる</td><td class="vr" data-l="VR">グラスの上で瓶を傾ける。深く傾けるほど速く出る</td></tr>
+    <tr><td>正確に量る</td><td data-l="Desktop">メジャーカップに注ぎ、カップを持ってグラスを見てUse。空のときのUseで45ml側と30ml側を返す</td><td class="vr" data-l="VR">カップに注ぎ、グラスの上で傾ける。逆さにするとこぼれる</td></tr>
+    <tr><td>シェイク</td><td data-l="Desktop">シェーカーを持ってUseで蓋を閉めて振る。もう一度Useでグラスへ注ぐ。入りきらない分はシェーカーに残り、次のグラスに注げる</td><td class="vr" data-l="VR">シェーカーを持って振る。傾けてグラスへ注ぐ</td></tr>
+    <tr><td>ステア</td><td data-l="Desktop">バースプーンを持ってミキシンググラスを見て、Use</td><td class="vr" data-l="VR">スプーンを中で3回ほど回す</td></tr>
+    <tr><td>氷を入れる</td><td data-l="Desktop">トングを持って氷バケツを見てUseでつかみ、グラスを見てもう一度Use</td><td class="vr" data-l="VR">トングの先を氷に近づけてUse、グラスの上でもう一度Use</td></tr>
+    <tr><td>氷をまとめて入れる</td><td colspan="2" data-l="共通">グラスを持って、縁を氷バケツの氷に当てる。1個ずつ入る</td></tr>
+    <tr><td>丸い氷</td><td colspan="2" data-l="共通">トングでトレーからつかみ、ロック・ハイボール・銅のマグ・ドクロのグラスに入れる</td></tr>
+    <tr><td>ドライアイス</td><td colspan="2" data-l="共通">トングで箱からつかみ、好きなグラスに入れる。しばらく白い煙があふれる</td></tr>
+    <tr><td>レモン・ライムを絞る</td><td data-l="Desktop">半分に切った果物を持って絞り器を見て、Use</td><td class="vr" data-l="VR">絞り器の山に切り口を下にして当て、押しながらひねる</td></tr>
+    <tr><td>縁に塩・砂糖</td><td data-l="Desktop">グラスを持って塩（砂糖）の皿を見て、Use</td><td class="vr" data-l="VR">グラスを逆さにして、縁を皿に押し当てる</td></tr>
+    <tr><td>飾りを付ける</td><td data-l="Desktop">トレイの飾りを持ってグラスを見て、Use</td><td class="vr" data-l="VR">グラスの上で手を離す</td></tr>
+    <tr><td>グラスからグラスへ移す</td><td data-l="Desktop">飲むグラスどうしは移せない（Useは飲む）。ミキシンググラスとビーカーは、持って相手のグラスを見てUse（シェーカーは振ったあと）</td><td class="vr" data-l="VR">持ったグラスを相手のグラスの上で傾ける。上の層から移る</td></tr>
+    <tr><td>飲む</td><td data-l="Desktop">グラスを持ってUse（ひと口ずつ。ショットはひと口で飲み干す）</td><td class="vr" data-l="VR">口元でグラスを傾ける</td></tr>
+    <tr><td>乾杯</td><td colspan="2" data-l="共通">グラス同士を当てると音が鳴る</td></tr>
+    <tr><td>中身を捨てる</td><td data-l="Desktop">グラスを持って流し台を見て手を離す（グラスごと棚へ片付く）</td><td class="vr" data-l="VR">グラスを流し台に入れる。グラスの縁をベルに当てると、中身だけ捨てる</td></tr>
+    <tr><td>全部元に戻す</td><td colspan="2" data-l="共通">リセットのベルを押す。動かした物と中身の入った物が元に戻り、タブレットも元の場所へ戻る（注ぐ許可を置いた場合は、許可のある人だけ）</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note"><b>Desktopで注げないとき</b>　Useの表示が「近くにグラスがありません」に変わったら、瓶とグラスが離れすぎています。カウンターの前まで進んでください。</p>
+
+<h2 id="autobar">オートバー（タブレット）</h2>
+<p>カウンターのタブレットでレシピを選ぶと、その一杯をギミックが自動で作ります。VRでは指で画面に触れるかレーザーで、Desktopではクリックで操作します。</p>
+<figure><img src="img/tablet_list.jpg" alt="オートバーのレシピ一覧。ベースのお酒の絞り込みボタンと、レシピのカードが並ぶ" width="1280" height="800" loading="lazy"><figcaption>レシピ一覧。ベースのお酒で絞り込み、ページを送って選びます。</figcaption></figure>
+<ol class="steps">
+  <li><div><h3>レシピを選ぶ</h3><p>一覧でベースのお酒（ジン、ウォッカ、ラム、テキーラ、ウイスキー、その他、自作）を選んで絞り込み、カードを押します。</p></div></li>
+  <li><div><h3>好みに変える</h3><p>グラス、作り方（ビルド・シェイク・ステア）、氷（なし・角氷・丸氷）、縁（なし・塩・砂糖）、ガーニッシュ2つ、材料の順番と割合を変えられます。割合は合計100%で、100%のときにグラスの口いっぱいまで入ります。変えた値が使われるのは、その1杯だけです。</p></div></li>
+  <li><div><h3>層にするか決める</h3><p>ビルドで「層にする」を選ぶと、混ぜずに層のまま仕上げます。「指定どおり」は注ぐ順に下から重ね、「比重のまま」はグレナデンのような重い材料を底へ沈めます。左のグラスの絵が仕上がりの見本です。軽い液体の上に重い液体が載る境目は、実物と同じく絵でもグラデーションになります。</p></div></li>
+  <li><div><h3>作る</h3><p>「目の前で作る」を押すと、タブレットの上にグラスが出て、瓶やシェーカーが浮いて来て注ぐ演出が流れます。「すぐ作る」なら演出なしで1秒ほどで入ります。途中で「やめる」を押すと、それまでに入った分はグラスに残ります。</p></div></li>
+</ol>
+<div class="split">
+<figure><img src="img/tablet_detail.jpg" alt="テキーラ・サンライズのカスタマイズ画面。左のグラスの絵は、底のグレナデンがくっきりした層で、テキーラとオレンジの境目がグラデーション。グラス、作り方、氷、縁、ガーニッシュ、材料の割合を選ぶ" width="1280" height="800" loading="lazy"><figcaption>カスタマイズ画面。材料は割合で決め、mlは小さく表示されます。</figcaption></figure>
+<div>
+<p>カスタマイズ画面の「材料と道具を光らせる」を押すと、そのレシピで使う瓶、グラス、道具が光ります。手で作るときは、光った物だけで材料がそろいます。もう一度押すと消えます。</p>
+<p>オートバーで作った一杯にも、手で作った一杯と同じ決まりで名前が付きます。</p>
+</div>
+</div>
+
+<h2 id="myrecipe">自分のレシピを作る</h2>
+<p>タブレットの「＋ レシピを作る」で、手で注いだ一杯をレシピとして残せます。</p>
+<ol class="steps">
+  <li><div><h3>グラスを出す</h3><p>グラスを選び、「グラスを出して始める」を押すと、タブレットの上にグラスが出ます。</p></div></li>
+  <li><div><h3>手で注ぐ</h3><p>瓶から注いだ材料の順番と量が、画面に記録されていきます。シェーカーから注いでも材料ごとに記録され、同じ瓶を分けて注いだ分は1行にまとまります。</p></div></li>
+  <li><div><h3>名前を付けて保存する</h3><p>名前を入力して保存すると、一覧の「自作」に出ます。名前が空欄なら「マイレシピ」と番号が付きます。同じ配合のグラスには、その名前が付きます。</p></div></li>
+</ol>
+<ul class="plain">
+  <li>自作のレシピは自分のアカウントに保存され、ワールドに入り直しても残ります。1人20件までです。</li>
+  <li>同じインスタンスの人のタブレットにも、作った人の名前つきで表示され、その人も作れます。</li>
+  <li>消せるのは自分のレシピだけです。詳細画面の「削除」を押してください。</li>
+</ul>
+
+<h2 id="liquid">液体のしくみ</h2>
+<p>どんな配合でも、グラスはその配合どおりの色になります。完成の見た目は前もって用意しておらず、注いだ材料と量から層と色を毎回計算しています。</p>
+<ul class="plain">
+  <li>材料は注いだ順に下から積もります。グレナデンとカシスは重いので、後から注いでも底へ沈みます。</li>
+  <li>境目の見え方を決めるのは比重です。上の液体が下より軽ければ、境目はくっきり残ります。上の液体のほうが重いか、ほぼ同じ重さなら、境目はグラデーションに広がります。重い液体が上なら数秒、ほぼ同じ重さなら20秒から1分ほどで広がりきります。</li>
+  <li>注いだだけでは1色になりません。グラデーションは広がりきったところで止まります。</li>
+  <li>1色にするには、ステアするか、シェイクするか、グラスを持って揺すってください。</li>
+  <li>シェイクすると白っぽい濁りと泡の層が出て、泡は少しずつ消えます。ステアすると透明感が残ります。</li>
+  <li>氷は時間がたつと小さくなります。溶けた水の分だけ量が増え、度数も下がるしくみです。氷とシェイク・ステアすると、その場で少し水が加わります。</li>
+  <li>結露が付くのは、氷が入っているときと、氷で冷やした飲み物を注いだときです。常温の瓶から注いだだけのグラスは結露しません。</li>
+</ul>
+<h3>比重で並んだリキュール</h3>
+<p>リキュールは比重の重い順に並んでいます。重い順に静かに注ぐと、プースカフェのような層が作れます。キュラソーとマラスキーノのように比重がほぼ同じもの同士は、境目がグラデーションになります。</p>
+<div class="gravity" role="img" aria-label="比重の例。グレナデン1.18、バナナ1.12、ブルーキュラソー1.10、マラスキーノ1.10、メロン1.05、ウォッカ0.97">
+  <div>グレナデン<b>1.18</b></div><div>バナナ<b>1.12</b></div><div>キュラソー<b>1.10</b></div><div>マラスキーノ<b>1.10</b></div><div>メロン<b>1.05</b></div><div>ウォッカ<b>0.97</b></div>
+</div>
+<h3>色が変わる材料</h3>
+<p>バタフライピー・ジンの青は、レモンやライムを入れると紫を経てピンクに変わります。混ぜてあれば速く、層のままならゆっくり変わります。卵白を入れてシェイクすると、白い泡の層がのります。</p>
+
+<h2 id="special">特別な作り方</h2>
+<h3>アブサンのドリップ</h3>
+<p>ポンタルリエグラスにアブサンを注ぎます。アブサンスプーンをグラスの口に渡し、角砂糖をスプーンに載せます。カラフェの冷水を角砂糖の上から注ぐと、水の筋が沈み、グラスの下から白く濁っていきます。スプーンが載っている間は飲めません。グラスを持ってUseするか大きく傾けると、スプーンが外れます。</p>
+<h3>ハーブのエリクシル</h3>
+<p>木のケースに入った小瓶のハーブリキュールで、数滴ずつ注げます。DesktopではUseの短押しで1回2ml、長押しでゆっくり注がれます。スプーンに載せた角砂糖に垂らすと砂糖が吸い込み、あふれた分だけグラスに入ります。染みた角砂糖は、グラスを持ってUseすると食べられます。</p>
+
+<h2 id="names">名前・味・度数</h2>
+<p>中身の材料の割合が登録済みのレシピに近いと、グラスを指したときの表示がそのカクテルの名前に変わります。割合が外れていれば、表示は「ハイボールグラス」のようなグラスの名前のままです。点数や正解はありません。</p>
+<ul class="plain">
+  <li>判定に使うのは材料の割合です。量が半分でも、比率が合えば同じ名前になります。各材料の割合には±30%ほどの幅があります。</li>
+  <li>シェイク、ステア、ビルドのどれで作るかが決まっているレシピもあります。たとえばプースカフェは、混ぜると名前が消えます。ソルティ・ドッグは塩の縁が必要です。</li>
+  <li>名前の下に、度数と甘・酸・苦の目安が3段階で出ます。名前の付かない自由な一杯にも出ます。</li>
+  <li>味と度数の表示は、カウンターの札で自分の画面だけ出す・隠すを切り替えられます。</li>
+</ul>
+
+<p class="part-h">一覧</p>
+
+<h2 id="iceglass">グラスと氷の対応表</h2>
+<p>丸い氷が入るのは、ロック、ハイボール、銅のマグ、ドクロの4種だけです。角氷はどのグラスにも入り、入る数はグラスごとに決まっています。</p>
+<div class="tbl">
+<table class="icet">
+  <thead><tr><th scope="col">グラス</th><th scope="col">角氷</th><th scope="col">丸い氷</th></tr></thead>
+  <tbody>
+    <tr><td>ポンタルリエグラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
+    <tr><td>ビアグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
+    <tr><td>ハリケーングラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
+    <tr><td>コリンズグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
+    <tr><td>ハイボールグラス</td><td class="num">4個まで</td><td class="num">入る</td></tr>
+    <tr><td>銅のマグ</td><td class="num">3個まで</td><td class="num">入る</td></tr>
+    <tr><td>ロックグラス</td><td class="num">1個まで</td><td class="num">入る</td></tr>
+    <tr><td>アイリッシュコーヒーグラス</td><td class="num">2個まで</td><td class="num">—</td></tr>
+    <tr><td>ワイングラス</td><td class="num">2個まで</td><td class="num">—</td></tr>
+    <tr><td>シャンパンフルート</td><td class="num">3個まで</td><td class="num">—</td></tr>
+    <tr><td>クープグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>マティーニグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>マルガリータグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>ショットグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>プースカフェグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>ゴシックゴブレット</td><td class="num">2個まで</td><td class="num">—</td></tr>
+    <tr><td>大釜グラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
+    <tr><td>ハロウィンクープ</td><td class="num">1個まで</td><td class="num">—</td></tr>
+    <tr><td>電球グラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
+    <tr><td>ブーツグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
+    <tr><td>ドクログラス</td><td class="num">1個まで</td><td class="num">入る</td></tr>
+    <tr><td>シェーカー</td><td class="num">4個まで</td><td class="num">—</td></tr>
+    <tr><td>ミキシンググラス</td><td class="num">5個まで</td><td class="num">—</td></tr>
+  </tbody>
+</table>
+</div>
+<ul class="plain">
+  <li>丸い氷は1個だけ入ります。角氷と丸い氷は同じグラスに一緒に入りません。</li>
+  <li>ドライアイスは、飲むグラスならどれにも入ります。氷が入っていても入れられます。</li>
+  <li>シェーカーとミキシンググラスには、トングで角氷を入れます。グラスの縁を氷バケツに当てて入れる方法は、飲むグラスだけで使えます。</li>
+</ul>
+
+<h2 id="bottles">瓶・グラス・道具</h2>
+<h3>瓶（56本）</h3>
+<p>瓶は減りません。何杯でも注げます。注ぎ口は、右手で持ったときに注ぎやすい向きにそろえています。</p>
+<figure><img src="img/bottles.jpg" alt="透明なガラスの瓶8本。シャンパン、スタウト、ジンジャービア、アブサン、ドライベルモット、ブラックウォッカ、ソーダ、ライムジュース" width="2000" height="441" loading="lazy"></figure>
+<div class="bottles">
+  <div><h4>スピリッツ 8</h4><p>ドライジン、ウォッカ、ホワイトラム、テキーラ、バーボン、スコッチ、アブサン、バタフライピー・ジン</p></div>
+  <div><h4>リキュール 12</h4><p>カシス、ピーチ、ブルーキュラソー、トリプルセック、ビター、コーヒー、バナナ、メロン、マラスキーノ、グリーン・ハーブ、ドライベルモット、ハーブのエリクシル</p></div>
+  <div><h4>ワイン・ビール 2</h4><p>シャンパン、スタウト</p></div>
+  <div><h4>炭酸 5</h4><p>ソーダ、トニック、コーラ、ジンジャーエール、ジンジャービア</p></div>
+  <div><h4>ジュース 6</h4><p>オレンジ、パイナップル、クランベリー、グレープフルーツ、レモン、ライム</p></div>
+  <div><h4>シロップほか 5</h4><p>シンプルシロップ、グレナデン、ココナッツクリーム、アロマティック・ビターズ、卵白</p></div>
+  <div><h4>水・お湯・コーヒー 3</h4><p>冷水のカラフェ、お湯のやかん、ホットコーヒーのポット</p></div>
+  <div><h4>ハロウィン 5</h4><p>ブラックウォッカ、ブラッドベリー、ソーサラーズ・アップル、ナイトシェード、ゴブリンの霊薬</p></div>
+  <div><h4>クリスマス 10</h4><p>赤ワイン、スパイスシロップ、ブランデー、スパイスト・ラム、バニラウォッカ、ペパーミント・シュナップス、ホワイトカカオ・リキュール、バニラクリーム・リキュール、エッグノッグのピッチャー、ホットココアの片手鍋</p></div>
+</div>
+<h3>グラス（21種）</h3>
+<p>ポンタルリエ、ビア、ハリケーン、コリンズ、ハイボール、銅のマグ、ロック、アイリッシュコーヒー、ワイン、シャンパンフルート、クープ、マティーニ、マルガリータ、ショット、プースカフェ、ゴシックゴブレット、大釜、ハロウィンクープ、電球、ブーツ、ドクロ。</p>
+<p>グラスは棚に種類ごとに並んでいて、取ると同じ種類の次の1個が出てきます。空のまま30秒置いたグラスは、自動で棚へ戻ります。飲み干すと、氷、飾り、縁の塩や砂糖はグラスから消えます。</p>
+<h3>ガーニッシュ（13種）</h3>
+<div class="split">
+<p>レモン、レモンピール、オレンジ、オレンジピール、ライムの輪切り、チェリー、ミント、オリーブ、カクテルオニオン、ブルーベリー、きゅうり、ローズマリー、シナモン。種類ごとのトレイに載っていて、取ってもなくなりません。</p>
+<figure><img src="img/garnish.jpg" alt="グラスの縁にレモンとライムの輪切りが付いている" width="800" height="640" loading="lazy"></figure>
+</div>
+<h3>道具</h3>
+<p>シェーカー、ミキシンググラス（ストレーナー付き）、バースプーン、メジャーカップ（45ml/30ml）、ビーカー、レモン絞り器、アイストング、氷バケツ、丸い氷のトレー、ドライアイスの箱、塩と砂糖の皿、アブサンスプーン、角砂糖、流し台、オートバーのタブレット、味と度数の札、リセットのベル。</p>
+
+<p class="part-h">困ったとき</p>
+
+<h2 id="faq">FAQ</h2>
+<dl class="faq">
+  <dt>ガラスや液体が見えない、ピンク色になる</dt>
+  <dd>VRC Light VolumesとlilToon が入っているか確認してください。Quest・スマートフォンでは表示されません。</dd>
+  <dt>Desktopで瓶を持ってUseしても注がれない</dt>
+  <dd>注ぐのは瓶から横に50cm以内のグラスだけです。カウンターの前まで進み、注ぎたいグラスを見てUseしてください。注ぐ許可を置いている場合は、許可のない人は瓶を持てません。</dd>
+  <dt>オートバーで「注ぐ許可のある人だけが作れます」と出る</dt>
+  <dd>注ぐ許可を置いていると、タブレットで作れるのも許可のある人だけです。誰でも作れるようにするには、注ぐ許可の <code>Restrict Auto Bar</code> のチェックを外してください。</dd>
+  <dt>配合どおりに作ったのに名前が出ない</dt>
+  <dd>ひと注ぎの量は瓶ごとに決まっています（スピリッツは主に45ml、レモン・ライムは20ml、ビターズは3ml など）。レシピと量が違う材料は、長押しで少しずつ注いでください。シェイクやステアが指定のレシピは、その方法で混ぜる必要があります。</dd>
+  <dt>注いだのに混ざらない</dt>
+  <dd>仕様です。注いだだけでは層とグラデーションのままです。ステア、シェイク、グラスを揺するのどれかで1色になります。</dd>
+  <dt>VRで物を離すと手から落ちる</dt>
+  <dd>VRでは握っている間だけ持つ仕様です。Desktopでは、離す操作をするまで持ったままです。</dd>
+  <dt>グラスが落ちない、宙に浮いたまま</dt>
+  <dd>仕様です。瓶やグラスは重力なしで、手を離した位置にとどまります。ベルを押すと元の場所へ戻ります。</dd>
+  <dt>グラスが棚に出てこない、オートバーでグラスが出ない</dt>
+  <dd>同じ種類のグラスが全部使われています。流し台で片付けるか、ベルを押してください。</dd>
+</dl>
+
+<h2 id="license">利用規約・サポート</h2>
+<p>VN3ライセンスに準じます（ショップ共通）。ワールドへの組み込み、改変は自由です。素材そのものの再配布はできません。</p>
+<p>同梱している第三者の素材（フォントのNoto Sans JP、効果音、マットキャップ）の出典とライセンスは、パッケージ内の <code>THIRD_PARTY_NOTICES.txt</code> にあります。</p>
+<p>不具合の報告と要望は、BOOTHのメッセージか要望フォームから受け付けています。報告のときは、Unityのバージョン、SDKのバージョン、VRかDesktopか、起きたことと手順を添えてください。届いた報告にはすべて目を通して返信します。</p>
+
+<footer>miyaBase　カクテル調合ギミック ガイド（下書き 2026-11-22）</footer>
+</main>
+</div>
+<script>
+(function(){
+  // where am I: the section at the top of the screen is marked in the contents and named in the phone bar
+  var mbar=document.getElementById('mbar'),mcur=document.getElementById('mcur');
+  var links=[].slice.call(document.querySelectorAll('.toc-list a'));
+  var ids=[];links.forEach(function(a){var id=a.getAttribute('href').slice(1);if(ids.indexOf(id)<0)ids.push(id);});
+  var heads=ids.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var current='',ticking=false;
+  function update(){
+    ticking=false;
+    var line=window.innerHeight*0.4,id=heads.length?heads[0].id:'';
+    for(var i=0;i<heads.length;i++){ if(heads[i].getBoundingClientRect().top<=line) id=heads[i].id; else break; }
+    if(id===current) return;
+    current=id;
+    links.forEach(function(a){ if(a.getAttribute('href')==='#'+id) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    var a=document.querySelector('.toc-list a[href="#'+id+'"]'); if(a&&mcur) mcur.textContent=a.textContent;
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+  window.addEventListener('resize',update);
+  update();
+  // phone: choosing a section closes the list
+  if(mbar) mbar.addEventListener('click',function(e){ if(e.target.closest('a')) mbar.open=false; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&mbar&&mbar.open){ mbar.open=false; mbar.querySelector('summary').focus(); } });
+})();
+</script>
+
+</body>
+</html>
