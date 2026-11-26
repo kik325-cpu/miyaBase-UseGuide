@@ -169,6 +169,7 @@ tbody tr:last-child td{border-bottom:0}
 .ops td:first-child{min-width:0}
 .icet td:first-child{font-weight:700}
 .icet td.num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.icet .mark{text-align:center;white-space:nowrap}
 /* phones: each row becomes a small block instead of a sideways-scrolling table */
 @media (max-width:640px){
   .tbl.stack{overflow:visible}
@@ -266,8 +267,8 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <header class="hero" id="about">
   <p class="tags"><span class="mb-tag mb-tag-solid">下書き</span> <span class="mb-tag">PC専用</span> <span class="mb-tag">VR / DESKTOP</span> <span class="mb-tag">UNITY 2022.3</span></p>
   <h1>カクテル調合ギミック <span class="light">ガイド</span></h1>
-  <p class="tagline">テキーラ45ml、オレンジ90ml、最後にグレナデン15ml。</p>
-  <p class="lead">グレナデンは後から注いでも底まで沈み、赤い層になります。テキーラとオレンジの境目だけがグラデーションに広がり、バースプーンで混ぜると1色になります。VRChatのPCワールドに置く調合ギミックで、グラスの中身は注いだ材料と量から毎回計算されます。VRでもDesktopでも同じ操作で作れて、作り方を知らない人はタブレットのオートバーで一杯を頼めます。</p>
+  <p class="tagline">テキーラ45ml、オレンジジュース90ml、最後にグレナデン15ml。</p>
+  <p class="lead">グレナデンは後から注いでも底まで沈み、赤い層になります。テキーラとオレンジジュースの境目だけがグラデーション状に広がり、バースプーンで混ぜると1色になります。VRChatのPCワールド向けのカクテル調合ギミックで、グラスの中身は注いだ材料と量から毎回計算されます。VRでもDesktopでも作れて、作り方を知らない人はタブレットのオートバーから一杯を注文できます。</p>
   <p class="stamp small">発売前の版です（2026-11-23時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
   <div class="route">
     <p class="small">ワールドに置く方は導入方法から、ワールドで遊ぶ方は遊び方から読んでください。</p>
@@ -275,12 +276,12 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   </div>
   <figure>
     <img src="img/gradient.jpg" alt="テキーラ・サンライズを注いだ直後、広がる途中、1分後の3枚。底の赤い層の境目はくっきりしたまま、透明なテキーラとオレンジの境目だけがグラデーションに広がる" width="1420" height="900">
-    <figcaption>注いだだけのテキーラ・サンライズ。底のグレナデンの境目はくっきり残り、テキーラの上に載ったオレンジジュースの境目だけがグラデーションに広がります。混ぜない限り1色にはなりません。</figcaption>
+    <figcaption>注いだだけのテキーラ・サンライズ。底のグレナデンの境目はくっきり残り、テキーラの上に重なったオレンジジュースの境目だけがグラデーション状に広がります。混ぜない限り1色にはなりません。</figcaption>
   </figure>
   <ul class="three">
     <li><b>傾けた分だけ注げる</b><span>瓶を深く傾けるほど速く注がれます。メジャーカップで45mlと30mlを量ることもできます。</span></li>
     <li><b>液体が本当に混ざる</b><span>注いだ順に層が積もり、重いリキュールは沈みます。シェイクすると泡と濁りが出て、ステアなら透明なまま混ざります。</span></li>
-    <li><b>Desktopでも作る側に回れる</b><span>注ぐ、量る、振る、混ぜる、絞る、氷を入れるを、VRでなくてもUseの短押しと長押しで操作できます。</span></li>
+    <li><b>Desktopでもバーテンダー役ができる</b><span>注ぐ・量る・振る・混ぜる・絞る・氷を入れるといった操作も、VRでなくてもUseの短押しと長押しで行えます。</span></li>
   </ul>
 </header>
 
@@ -291,7 +292,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   <li>VRChatのPC版（Windows）専用です。ガラスの屈折にGrabPassを使うため、Quest・Android・iOSでは動きません。</li>
   <li>Unity 2022.3.22f1、VRChat SDK - Worlds 3.10.5（UdonSharpを含む）で動作確認しています。</li>
   <li>VRC Light VolumesとlilToon（どちらもVCCから導入）が必要です。Light Volumesが入っていないとガラスと液体が、lilToonが入っていないと瓶のラベルと金属の道具が表示されません。VRC Light Volumes 2.1.3、lilToon 2.3.4で確認しています。</li>
-  <li>このパッケージだけで動きます。ワールド版のカクテルギミックは要りません。</li>
+  <li>このパッケージだけで動きます。別の商品であるワールド版のカクテルギミックを入れる必要はありません。</li>
   <li>操作はVRとDesktopの両方に対応しています。</li>
 </ul>
 
@@ -301,10 +302,10 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <ol class="steps">
   <li><div><h3>ワールドのプロジェクトを開く</h3><p>VCCでSDK、VRC Light Volumes、lilToonが入ったワールドのプロジェクトを開きます。新しく作る場合は、VCCの「World」テンプレートから作ってください。</p></div></li>
   <li><div><h3>unitypackageをインポートする</h3><p>ダウンロードした .unitypackage をUnityのProjectウィンドウへドラッグし、すべてにチェックが入ったままImportを押します。</p></div></li>
-  <li><div><h3>使う物を選んで置く</h3><p><code>Prefabs</code> フォルダの中は、瓶の <code>Bottles</code>、グラスの <code>Glasses</code>、それ以外（道具・ガーニッシュ・コースターなど）の <code>Others</code> に分かれています。使いたい物を1つずつシーンへドラッグします。置いた物だけで動きます。</p>
+  <li><div><h3>使うものを選んで置く</h3><p><code>Prefabs</code> フォルダの中は、瓶の <code>Bottles</code>、グラスの <code>Glasses</code>、それ以外（道具・ガーニッシュ・コースターなど）の <code>Others</code> に分かれています。使いたいものを1つずつシーンへドラッグします。置いたものだけで動きます。</p>
     <p>最初の1つを置くと、本体 <code>miyaBase_MixCore</code>（<code>Others</code> の中）が自動でシーンに入ります。レシピと、ドライアイスの煙・炎の演出が入っているので、消さないでください。本体はシーンに1つだけ置きます。</p>
     <table class="ops">
-      <thead><tr><th scope="col">置く物</th><th scope="col">Prefab</th></tr></thead>
+      <thead><tr><th scope="col">置くもの</th><th scope="col">Prefab</th></tr></thead>
       <tbody>
       <tr><td>瓶</td><td><code>Bottles</code> フォルダの <code>miyaBase_MixBottle_</code>（ジンは <code>…_Gin</code> など）。同じ瓶を2本置いてもかまいません</td></tr>
       <tr><td>グラス</td><td><code>Glasses</code> フォルダの <code>miyaBase_MixGlass_</code>（ハイボールは <code>…_Highball</code> など）。置いた位置が定位置で、ベルや流しで空になってそこへ戻ります</td></tr>
@@ -315,26 +316,26 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
       <tr><td>そのほか</td><td>味と度数の札 <code>miyaBase_MixTasteSwitch</code>、果物の板 <code>miyaBase_MixFruitBoard</code>、エリクシルの木箱 <code>miyaBase_MixElixirCase</code>、コースター <code>miyaBase_MixCoaster</code></td></tr>
       </tbody>
     </table>
-    <p class="note"><b>レシピは置いた物で決まる</b>　材料の瓶とおすすめのグラスがすべて置かれているレシピだけが使われます（グラスに名前が出る、オートバーの一覧に出る）。たとえば瓶をジン、トニック、スコッチ、ソーダにしてハイボールグラスを置くと、ジントニックとハイボールが作れます。</p>
-    <p class="note"><b>組み合わせて使う物</b>　レモンとライムの半分（<code>miyaBase_MixLemonHalf</code> / <code>miyaBase_MixLimeHalf</code>）は、レモン絞り器と、レモン（ライム）ジュースの瓶を置いたときにレシピの材料として数えます。角砂糖を熱い飲み物に溶かすには、シンプルシロップの瓶が要ります。</p>
-    <p class="note"><b>まとめて置いたとき</b>　何個かまとめてドラッグすると同じ場所に重なります。選んだまま Hierarchy で右クリックし、<code>miyaBase</code> → <code>Line Up Selected</code> を選ぶと、最後に選んだ物から一列に並びます。</p></div></li>
-  <li><div><h3>カクテルを作れるユーザーを限定する場合、許可プレハブを置く</h3><p>イベントなどで決まった人だけに作らせたいときは、注ぐ許可を置きます。置かなければ誰でも注げます。手順は<a href="#settings">設定</a>にあります。</p></div></li>
+    <p class="note"><b>レシピは置いたもので決まる</b>　材料の瓶とおすすめのグラスがすべて置かれているレシピだけが有効になります。有効なレシピは、グラスにカクテル名が表示され、オートバーの一覧にも並びます。たとえば瓶をジン、トニック、スコッチ、ソーダにしてハイボールグラスを置くと、ジントニックとハイボールが作れます。</p>
+    <p class="note"><b>組み合わせて使うもの</b>　レモンとライムの半分（<code>miyaBase_MixLemonHalf</code> / <code>miyaBase_MixLimeHalf</code>）は、レモン絞り器と、レモン（ライム）ジュースの瓶を置いたときにレシピの材料として数えます。角砂糖を熱い飲み物に溶かすには、シンプルシロップの瓶が要ります。</p>
+    <p class="note"><b>まとめて置いたとき</b>　何個かまとめてドラッグすると同じ場所に重なります。選んだまま Hierarchy で右クリックし、<code>miyaBase</code> → <code>Line Up Selected</code> を選ぶと、最後に選んだものから一列に並びます。</p></div></li>
+  <li><div><h3>カクテルを作れるユーザーを限定する場合、許可プレハブを置く</h3><p>イベントなどで決まった人だけに作らせたいときは、「注ぐ許可」を置きます。置かなければ誰でも注げます。手順は<a href="#settings">設定</a>にあります。</p></div></li>
   <li><div><h3>照明を整える</h3><p>カウンターの近くにリフレクションプローブを1つ置き、ライトをベイクしてください。ガラスと液体は、周りの映り込みで見え方が変わります。</p></div></li>
-  <li><div><h3>アップロードして、VRとDesktopで試す</h3><p>Build &amp; Publishでアップロードします。瓶を持ってグラスに注げれば導入は完了です。</p></div></li>
+  <li><div><h3>アップロードして、VRとDesktopで試す</h3><p>Build &amp; Publishでアップロードします。瓶を持ってグラスに注げることを確かめたら、導入は完了です。</p></div></li>
 </ol>
 
 <h2 id="settings">設定</h2>
 <h3>カクテルを作れるユーザーを限定</h3>
-<p>注ぐ許可（Prefab <code>miyaBase_MixPourPermission</code>）をシーンに置き、注げる人の表示名を登録します。インスタンスのオーナーは、登録しなくても注げます。注ぐ許可を置かなければ、誰でも注げる状態です。飲むのは誰でもかまいません。</p>
-<p>注ぐ許可を置くと、オートバーのタブレットで作れるのも許可のある人だけになります。タブレットは誰でも使えるようにしたいときは、注ぐ許可の <code>Restrict Auto Bar</code> のチェックを外してください。</p>
-<p>注ぐ許可を置いた場合、リセットのベルを押せるのも許可のある人だけです。</p>
+<p>「注ぐ許可」（Prefab <code>miyaBase_MixPourPermission</code>）をシーンに置き、注げる人の表示名を登録します。インスタンスのオーナーは、登録しなくても注げます。「注ぐ許可」を置かなければ、誰でも注げる状態です。飲むことは、許可がなくても誰でもできます。</p>
+<p>「注ぐ許可」を置くと、オートバーのタブレットで作れるのも許可のある人だけになります。タブレットは誰でも使えるようにしたいときは、「注ぐ許可」の <code>Restrict Auto Bar</code> のチェックを外してください。</p>
+<p>「注ぐ許可」を置いた場合、リセットのベルを押せるのも許可のある人だけです。</p>
 <h3>味と度数の表示の初期値</h3>
-<p>本体 <code>miyaBase_MixCore</code> の中の <code>_MixBar</code> の Show Taste で決めます。オンなら最初から表示し、遊ぶ人はカウンターの札で自分の画面だけ切り替えられます。</p>
+<p>本体 <code>miyaBase_MixCore</code> の中の <code>_MixBar</code> の Show Taste で決めます。オンにすると最初から表示されます。遊ぶ人は、カウンターの札で自分の画面の表示・非表示をいつでも切り替えられます。</p>
 
 <h2 id="custom">レシピを足す・消す</h2>
 <ol class="steps">
   <li><div><h3>レシピを複製する</h3><p>Hierarchyで本体 <code>miyaBase_MixCore</code> の中の <code>Recipes</code> を開き、近いレシピのオブジェクトを複製します。</p></div></li>
-  <li><div><h3>名前と材料を変える</h3><p>Inspectorでカクテル名、使う瓶と割合、作り方（どれでも・シェイク・ステア・ビルド）、おすすめのグラスを設定します。瓶とグラスは種類で選びます。まだ置いていない物には「未配置」と出ます。</p></div></li>
+  <li><div><h3>名前と材料を変える</h3><p>Inspectorでカクテル名、使う瓶と割合、作り方（どれでも・シェイク・ステア・ビルド）、おすすめのグラスを設定します。瓶とグラスは種類で選びます。まだ置いていないものには「未配置」と出ます。</p></div></li>
   <li><div><h3>そのままアップロード</h3><p>レシピはPlayとアップロードのときに自動で集められ、オートバーの一覧にも出ます。材料の瓶かおすすめのグラスを置いていないレシピは、自動で外れます。</p></div></li>
 </ol>
 <p>使わないレシピは、オブジェクトを非表示にすれば無効になります。消す必要はありません。</p>
@@ -342,28 +343,28 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p class="part-h">遊ぶ（ワールドに来た方へ）</p>
 
 <h2 id="controls">操作の早見表</h2>
-<p>VRでは、握っている間だけ物を持ちます。Desktopでは、クリックで持った物は離す操作をするまで手に残り、目の前に浮きます。Desktopで注ぐときはカウンターの前に立ち、瓶から横に50cm以内にあるグラスを見てUseしてください。</p>
+<p>VRでは、握っている間だけ手に持てます。Desktopでは、クリックで持ったものは離す操作をするまで手に残り、目の前に浮きます。Desktopで注ぐときはカウンターの前に立ち、瓶から横に50cm以内にあるグラスに視線を合わせてUseしてください。</p>
 <div class="tbl stack">
 <table class="ops">
   <thead><tr><th scope="col">したいこと</th><th scope="col">Desktop</th><th scope="col">VR</th></tr></thead>
   <tbody>
-    <tr><td>グラスを取る</td><td colspan="2" data-l="共通">置いてあるグラスを取る</td></tr>
+    <tr><td>グラスを取る</td><td colspan="2" data-l="共通">置いてあるグラスを持つ</td></tr>
     <tr><td>ひと注ぎ</td><td data-l="Desktop">瓶を持ってグラスを見て、Useを短く押す（量は瓶ごと。スピリッツとジュースは主に45ml、リキュールは10〜30ml、レモン・ライムは20ml、炭酸は90ml、ビターズは3ml など）</td><td class="vr" data-l="VR">Desktopと同じ。または瓶をグラスの上で傾ける</td></tr>
     <tr><td>好きな量を注ぐ</td><td data-l="Desktop">Useを押し続ける。離すまで毎秒20ml注がれる</td><td class="vr" data-l="VR">グラスの上で瓶を傾ける。深く傾けるほど速く出る</td></tr>
-    <tr><td>正確に量る</td><td data-l="Desktop">メジャーカップに注ぎ、カップを持ってグラスを見てUse。空のときのUseで45ml側と30ml側を返す</td><td class="vr" data-l="VR">カップに注ぎ、グラスの上で傾ける。逆さにするとこぼれる</td></tr>
+    <tr><td>正確に量る</td><td data-l="Desktop">メジャーカップに注ぎ、カップを持ってグラスを見てUse。空の状態でUseすると、45ml側と30ml側をひっくり返せる</td><td class="vr" data-l="VR">カップに注ぎ、グラスの上で傾ける。逆さにするとこぼれる</td></tr>
     <tr><td>シェイク</td><td data-l="Desktop">シェーカーを持ってUseで蓋を閉めて振る。もう一度Useでグラスへ注ぐ。入りきらない分はシェーカーに残り、次のグラスに注げる</td><td class="vr" data-l="VR">シェーカーを持って振る。傾けてグラスへ注ぐ</td></tr>
     <tr><td>ステア</td><td data-l="Desktop">バースプーンを持ってミキシンググラスを見て、Use</td><td class="vr" data-l="VR">スプーンを中で3回ほど回す</td></tr>
     <tr><td>氷を入れる</td><td data-l="Desktop">トングを持って氷バケツを見てUseでつかみ、グラスを見てもう一度Use</td><td class="vr" data-l="VR">トングの先を氷に近づけてUse、グラスの上でもう一度Use</td></tr>
-    <tr><td>氷をまとめて入れる</td><td colspan="2" data-l="共通">グラスを持って、縁を氷バケツの氷に当てる。1個ずつ入る</td></tr>
+    <tr><td>トングを使わずに氷を入れる</td><td colspan="2" data-l="共通">グラスを持ち、縁を氷バケツの氷に当てる。当てている間、満杯まで1個ずつ入る</td></tr>
     <tr><td>丸い氷</td><td colspan="2" data-l="共通">トングでトレーからつかみ、ロック・ハイボール・銅のマグ・ドクロのグラスに入れる</td></tr>
     <tr><td>ドライアイス</td><td colspan="2" data-l="共通">トングで箱からつかみ、好きなグラスに入れる。しばらく白い煙があふれる</td></tr>
     <tr><td>レモン・ライムを絞る</td><td data-l="Desktop">半分に切った果物を持って絞り器を見て、Use</td><td class="vr" data-l="VR">絞り器の山に切り口を下にして当て、押しながらひねる</td></tr>
     <tr><td>縁に塩・砂糖</td><td data-l="Desktop">グラスを持って塩（砂糖）の皿を見て、Use</td><td class="vr" data-l="VR">グラスを逆さにして、縁を皿に押し当てる</td></tr>
     <tr><td>飾りを付ける</td><td data-l="Desktop">トレイの飾りを持ってグラスを見て、Use</td><td class="vr" data-l="VR">グラスの上で手を離す</td></tr>
-    <tr><td>グラスからグラスへ移す</td><td data-l="Desktop">飲むグラスどうしは移せない（Useは飲む）。ミキシンググラスとビーカーは、持って相手のグラスを見てUse（シェーカーは振ったあと）</td><td class="vr" data-l="VR">持ったグラスを相手のグラスの上で傾ける。上の層から移る</td></tr>
+    <tr><td>グラスからグラスへ移す</td><td data-l="Desktop">飲むグラスどうしは移せない（Useは飲む）。ミキシンググラスやビーカー（シェーカーは振ったあと）を持ち、移し先のグラスに視線を合わせてUse</td><td class="vr" data-l="VR">持ったグラスを移し先のグラスの上で傾ける。上の層から移る</td></tr>
     <tr><td>飲む</td><td data-l="Desktop">グラスを持ってUse（ひと口ずつ。ショットはひと口で飲み干す）</td><td class="vr" data-l="VR">口元でグラスを傾ける</td></tr>
     <tr><td>乾杯</td><td colspan="2" data-l="共通">グラス同士を当てると音が鳴る</td></tr>
-    <tr><td>中身を捨てる</td><td data-l="Desktop">グラスを持って流し台を見て手を離す（グラスごと置いた位置へ片付く）</td><td class="vr" data-l="VR">グラスを流し台に入れる。グラスの縁をベルに当てると、中身だけ捨てる</td></tr>
+    <tr><td>中身を捨てる</td><td data-l="Desktop">グラスを持ち、流し台に視線を合わせて離す（グラスごと置いた位置へ片付く）</td><td class="vr" data-l="VR">グラスを流し台に入れる。グラスの縁をベルに当てると、中身だけ捨てる</td></tr>
     <tr><td>全部元に戻す</td><td colspan="2" data-l="共通">リセットのベルを押す</td></tr>
   </tbody>
 </table>
@@ -376,13 +377,13 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <ol class="steps">
   <li><div><h3>レシピを選ぶ</h3><p>一覧でベースのお酒（ジン、ウォッカ、ラム、テキーラ、ウイスキー、その他、自作）を選んで絞り込み、カードを押します。</p></div></li>
   <li><div><h3>好みに変える</h3><p>グラス、作り方（ビルド・シェイク・ステア）、氷（なし・角氷・丸氷）、縁（なし・塩・砂糖）、ガーニッシュ2つ、材料の順番と割合を変えられます。割合は合計100%で、100%のときにグラスの口いっぱいまで入ります。</p></div></li>
-  <li><div><h3>層にするか決める</h3><p>ビルドで「層にする」を選ぶと、混ぜずに層のまま仕上げます。「指定どおり」は注ぐ順に下から重ね、「比重のまま」はグレナデンのような重い材料を底へ沈めます。左のグラスの絵が仕上がりの見本です。軽い液体の上に重い液体が載る境目は、実物と同じく絵でもグラデーションになります。</p></div></li>
-  <li><div><h3>作る</h3><p>「目の前で作る」を押すと、タブレットの上にグラスが出て、瓶やシェーカーが浮いて来て注ぐ演出が流れます。「すぐ作る」なら演出なしで1秒ほどで入ります。途中で「やめる」を押すと、それまでに入った分はグラスに残ります。</p></div></li>
+  <li><div><h3>層にするか決める</h3><p>ビルドで「層にする」を選ぶと、混ぜずに層のまま仕上げます。「指定どおり」は注ぐ順に下から重ね、「比重のまま」はグレナデンのような重い材料を底へ沈めます。左のグラスのイラストが仕上がりの見本です。軽い液体の上に重い液体が重なる境目は、実物と同じく見本のイラストでもグラデーションになります。</p></div></li>
+  <li><div><h3>作る</h3><p>「目の前で作る」を押すと、タブレットの上にグラスが出て、瓶やシェーカーが浮いて来て注ぐ演出が流れます。「すぐ作る」を押すと、演出なしで1秒ほどで完成します。途中で「やめる」を押すと、それまでに入った分はグラスに残ります。</p></div></li>
 </ol>
 <div class="split">
 <figure><img src="img/tablet_detail.jpg" alt="テキーラ・サンライズのカスタマイズ画面。左のグラスの絵は、底のグレナデンがくっきりした層で、テキーラとオレンジの境目がグラデーション。グラス、作り方、氷、縁、ガーニッシュ、材料の割合を選ぶ" width="1280" height="800" loading="lazy"></figure>
 <div>
-<p>カスタマイズ画面の「材料と道具を光らせる」を押すと、そのレシピで使う瓶、グラス、道具が光ります。手で作るときは、光った物だけで材料がそろいます。もう一度押すと消えます。</p>
+<p>カスタマイズ画面の「材料と道具を光らせる」を押すと、そのレシピで使う瓶、グラス、道具が光ります。手で作るときも、光っているものを手に取れば材料がそろいます。もう一度押すと消えます。</p>
 <p>オートバーで作った一杯にも、手で作った一杯と同様に名前が付きます。</p>
 </div>
 </div>
@@ -392,7 +393,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <ol class="steps">
   <li><div><h3>グラスを出す</h3><p>グラスを選び、「グラスを出して始める」を押すと、タブレットの上にグラスが出ます。</p></div></li>
   <li><div><h3>手で注ぐ</h3><p>瓶から注いだ材料の順番と量が、画面に記録されていきます。シェーカーから注いでも材料ごとに記録され、同じ瓶を分けて注いだ分は1行にまとまります。</p></div></li>
-  <li><div><h3>名前を付けて保存する</h3><p>名前を入力して保存すると、一覧の「自作」に出ます。名前が空欄なら「マイレシピ」と番号が付きます。同じ配合のグラスには、その名前が付きます。</p></div></li>
+  <li><div><h3>名前を付けて保存する</h3><p>名前を入力して保存すると、一覧の「自作」に出ます。名前が空欄なら「マイレシピ」と番号が付きます。以降は、同じ配合で作ったグラスにもその名前が表示されます。</p></div></li>
 </ol>
 <ul class="plain">
   <li>自作のレシピは自分のアカウントに保存され、ワールドに入り直しても残ります。1人20件までです。</li>
@@ -401,10 +402,10 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 </ul>
 
 <h2 id="liquid">液体のしくみ</h2>
-<p>どんな配合でも、グラスはその配合どおりの色になります。完成の見た目は前もって用意しておらず、注いだ材料と量から層と色を毎回計算しています。</p>
+<p>どんな配合でも、グラスはその配合どおりの色になります。完成の見た目をあらかじめ用意しているのではなく、注いだ材料と量から層と色を毎回計算しています。</p>
 <ul class="plain">
   <li>材料は注いだ順に下から積もります。グレナデンとカシスは重いので、後から注いでも底へ沈みます。</li>
-  <li>境目の見え方を決めるのは比重です。上の液体が下より軽ければ、境目はくっきり残ります。上の液体のほうが重いか、ほぼ同じ重さなら、境目はグラデーションに広がります。重い液体が上なら数秒、ほぼ同じ重さなら20秒から1分ほどで広がりきります。</li>
+  <li>境目の見え方を決めるのは比重です。上の液体が下より軽ければ、境目はくっきり残ります。上の液体のほうが重いか、ほぼ同じ重さなら、境目はグラデーション状に広がります。重い液体が上なら数秒、ほぼ同じ重さなら20秒から1分ほどで広がりきります。</li>
   <li>注いだだけでは1色になりません。グラデーションは広がりきったところで止まります。</li>
   <li>1色にするには、ステアするか、シェイクするか、グラスを持って揺すってください。</li>
   <li>シェイクすると白っぽい濁りと泡の層が出て、泡は少しずつ消えます。ステアすると透明感が残ります。</li>
@@ -421,7 +422,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 
 <h2 id="special">特別な作り方</h2>
 <h3>アブサンのドリップ</h3>
-<p>ポンタルリエグラスにアブサンを注ぎます。アブサンスプーンをグラスの口に渡し、角砂糖をスプーンに載せます。カラフェの冷水を角砂糖の上から注ぐと、水の筋が沈み、グラスの下から白く濁っていきます。スプーンが載っている間は飲めません。グラスを持ってUseするか大きく傾けると、スプーンが外れます。</p>
+<p>ポンタルリエグラスにアブサンを注ぎます。アブサンスプーンをグラスの口に橋渡しするように置き、角砂糖をスプーンに載せます。カラフェの冷水を角砂糖の上から注ぐと、水の筋が沈み、グラスの下から白く濁っていきます。スプーンが載っている間は飲めません。グラスを持ってUseするか大きく傾けると、スプーンが外れます。</p>
 <h3>ハーブのエリクシル</h3>
 <p>木のケースに入った小瓶のハーブリキュールで、数滴ずつ注げます。DesktopではUseの短押しで1回2ml、長押しでゆっくり注がれます。スプーンに載せた角砂糖に垂らすと砂糖が吸い込み、あふれた分だけグラスに入ります。染みた角砂糖は、グラスを持ってUseすると食べられます。</p>
 
@@ -440,36 +441,36 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p>丸い氷が入るのは、ロック、ハイボール、銅のマグ、ドクロの4種だけです。角氷はどのグラスにも入り、入る数はグラスごとに決まっています。</p>
 <div class="tbl">
 <table class="icet">
-  <thead><tr><th scope="col">グラス</th><th scope="col">角氷</th><th scope="col">丸い氷</th></tr></thead>
+  <thead><tr><th scope="col">グラス</th><th scope="col">角氷</th><th scope="col" class="mark">丸い氷</th></tr></thead>
   <tbody>
-    <tr><td>ポンタルリエグラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
-    <tr><td>ビアグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
-    <tr><td>ハリケーングラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
-    <tr><td>コリンズグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
-    <tr><td>ハイボールグラス</td><td class="num">4個まで</td><td class="num">入る</td></tr>
-    <tr><td>銅のマグ</td><td class="num">3個まで</td><td class="num">入る</td></tr>
-    <tr><td>ロックグラス</td><td class="num">1個まで</td><td class="num">入る</td></tr>
-    <tr><td>アイリッシュコーヒーグラス</td><td class="num">2個まで</td><td class="num">—</td></tr>
-    <tr><td>ワイングラス</td><td class="num">2個まで</td><td class="num">—</td></tr>
-    <tr><td>シャンパンフルート</td><td class="num">3個まで</td><td class="num">—</td></tr>
-    <tr><td>クープグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>マティーニグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>マルガリータグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>ショットグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>プースカフェグラス</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>ゴシックゴブレット</td><td class="num">2個まで</td><td class="num">—</td></tr>
-    <tr><td>大釜グラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
-    <tr><td>ハロウィンクープ</td><td class="num">1個まで</td><td class="num">—</td></tr>
-    <tr><td>電球グラス</td><td class="num">3個まで</td><td class="num">—</td></tr>
-    <tr><td>ブーツグラス</td><td class="num">4個まで</td><td class="num">—</td></tr>
-    <tr><td>ドクログラス</td><td class="num">1個まで</td><td class="num">入る</td></tr>
-    <tr><td>シェーカー</td><td class="num">4個まで</td><td class="num">—</td></tr>
-    <tr><td>ミキシンググラス</td><td class="num">5個まで</td><td class="num">—</td></tr>
+    <tr><td>ポンタルリエグラス</td><td class="num">3個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ビアグラス</td><td class="num">4個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ハリケーングラス</td><td class="num">4個まで</td><td class="mark">ー</td></tr>
+    <tr><td>コリンズグラス</td><td class="num">4個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ハイボールグラス</td><td class="num">4個まで</td><td class="mark">〇</td></tr>
+    <tr><td>銅のマグ</td><td class="num">3個まで</td><td class="mark">〇</td></tr>
+    <tr><td>ロックグラス</td><td class="num">1個まで</td><td class="mark">〇</td></tr>
+    <tr><td>アイリッシュコーヒーグラス</td><td class="num">2個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ワイングラス</td><td class="num">2個まで</td><td class="mark">ー</td></tr>
+    <tr><td>シャンパンフルート</td><td class="num">3個まで</td><td class="mark">ー</td></tr>
+    <tr><td>クープグラス</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>マティーニグラス</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>マルガリータグラス</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ショットグラス</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>プースカフェグラス</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ゴシックゴブレット</td><td class="num">2個まで</td><td class="mark">ー</td></tr>
+    <tr><td>大釜グラス</td><td class="num">3個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ハロウィンクープ</td><td class="num">1個まで</td><td class="mark">ー</td></tr>
+    <tr><td>電球グラス</td><td class="num">3個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ブーツグラス</td><td class="num">4個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ドクログラス</td><td class="num">1個まで</td><td class="mark">〇</td></tr>
+    <tr><td>シェーカー</td><td class="num">4個まで</td><td class="mark">ー</td></tr>
+    <tr><td>ミキシンググラス</td><td class="num">5個まで</td><td class="mark">ー</td></tr>
   </tbody>
 </table>
 </div>
 <ul class="plain">
-  <li>丸い氷は1個だけ入ります。角氷と丸い氷は同じグラスに一緒に入りません。</li>
+  <li>丸い氷は1個まで入ります。角氷と丸い氷を、同じグラスに一緒に入れることはできません。</li>
   <li>ドライアイスは、飲むグラスならどれにも入ります。氷が入っていても入れられます。</li>
   <li>シェーカーとミキシンググラスには、トングで角氷を入れます。グラスの縁を氷バケツに当てて入れる方法は、飲むグラスだけで使えます。</li>
 </ul>
@@ -495,7 +496,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p class="note"><b>出せるグラスを増やすとき</b>　同じ種類のグラス（<code>miyaBase_MixGlass_</code>）をもう1個置いてください。1個ずつ別のグラスとして働き、置いた位置がそれぞれの定位置です。オートバーは空いている同じ種類のグラスを使い、全部使われているときは「空いている〇〇がありません」と出ます。</p>
 <h3>ガーニッシュ（13種）</h3>
 <div class="split">
-<p>レモン、レモンピール、オレンジ、オレンジピール、ライムの輪切り、チェリー、ミント、オリーブ、カクテルオニオン、ブルーベリー、きゅうり、ローズマリー、シナモン。種類ごとのトレイに載っていて、取ってもなくなりません。</p>
+<p>レモン、レモンピール、オレンジ、オレンジピール、ライムの輪切り、チェリー、ミント、オリーブ、カクテルオニオン、ブルーベリー、きゅうり、ローズマリー、シナモン。種類ごとのトレイに載っており、取ってもなくなりません。</p>
 <figure><img src="img/garnish.jpg" alt="グラスの縁にレモンとライムの輪切りが付いている" width="800" height="640" loading="lazy"></figure>
 </div>
 <h3>道具</h3>
@@ -506,16 +507,16 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <h2 id="faq">FAQ</h2>
 <dl class="faq">
   <dt>ガラスや液体が見えない、ピンク色になる</dt>
-  <dd>VRC Light VolumesとlilToon が入っているか確認してください。Quest・スマートフォンでは表示されません。</dd>
+  <dd>VRC Light VolumesとlilToonが入っているか確認してください。Quest・スマートフォンでは表示されません。</dd>
   <dt>Desktopで瓶を持ってUseしても注がれない</dt>
-  <dd>注ぐのは瓶から横に50cm以内のグラスだけです。カウンターの前まで進み、注ぎたいグラスを見てUseしてください。注ぐ許可を置いている場合は、許可のない人は瓶を持てません。</dd>
+  <dd>注ぐのは瓶から横に50cm以内のグラスだけです。カウンターの前まで進み、注ぎたいグラスを見てUseしてください。「注ぐ許可」を置いている場合は、許可のない人は瓶を持てません。</dd>
   <dt>オートバーで「注ぐ許可のある人だけが作れます」と出る</dt>
-  <dd>注ぐ許可を置いていると、タブレットで作れるのも許可のある人だけです。誰でも作れるようにするには、注ぐ許可の <code>Restrict Auto Bar</code> のチェックを外してください。</dd>
+  <dd>「注ぐ許可」を置いていると、タブレットで作れるのも許可のある人だけです。誰でも作れるようにするには、「注ぐ許可」の <code>Restrict Auto Bar</code> のチェックを外してください。</dd>
   <dt>配合どおりに作ったのに名前が出ない</dt>
-  <dd>ひと注ぎの量は瓶ごとに決まっています（スピリッツは主に45ml、レモン・ライムは20ml、ビターズは3ml など）。レシピと量が違う材料は、長押しで少しずつ注いでください。シェイクやステアが指定のレシピは、その方法で混ぜる必要があります。</dd>
+  <dd>ひと注ぎの量は瓶ごとに決まっています（スピリッツは主に45ml、レモン・ライムは20ml、ビターズは3ml など）。ひと注ぎの量とレシピの分量が合わない材料は、長押しで少しずつ注いで調整してください。シェイクやステアが指定されているレシピは、その方法で混ぜる必要があります。</dd>
   <dt>注いだのに混ざらない</dt>
   <dd>仕様です。注いだだけでは層とグラデーションのままです。ステア、シェイク、グラスを揺するのどれかで1色になります。</dd>
-  <dt>VRで物を離すと手から落ちる</dt>
+  <dt>VRで手を離すと落ちる</dt>
   <dd>VRでは握っている間だけ持つ仕様です。Desktopでは、離す操作をするまで持ったままです。</dd>
   <dt>オートバーでグラスが出ない</dt>
   <dd>同じ種類のグラスが全部使われています。流し台で片付けるか、ベルを押してください。</dd>
@@ -530,7 +531,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p>同梱している第三者の素材（フォントのNoto Sans JP、効果音、マットキャップ）の出典とライセンスは、パッケージ内の <code>THIRD_PARTY_NOTICES.txt</code> にあります。</p>
 <p>不具合の報告と要望は、BOOTHのメッセージか要望フォームから受け付けています。報告のときは、Unityのバージョン、SDKのバージョン、VRかDesktopか、起きたことと手順を添えてください。届いた報告にはすべて目を通して返信します。</p>
 
-<footer>miyaBase　カクテル調合ギミック ガイド（下書き 2026-11-22）</footer>
+<footer>miyaBase　カクテル調合ギミック ガイド（下書き 2026-11-23）</footer>
 </main>
 </div>
 <script>
