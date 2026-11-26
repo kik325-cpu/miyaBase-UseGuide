@@ -269,7 +269,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   <h1>カクテル調合ギミック <span class="light">ガイド</span></h1>
   <p class="tagline">テキーラ45ml、オレンジジュース90ml、最後にグレナデン15ml。</p>
   <p class="lead">グレナデンは後から注いでも底まで沈み、赤い層になります。テキーラとオレンジジュースの境目だけがグラデーション状に広がり、バースプーンで混ぜると1色になります。VRChatのPCワールド向けのカクテル調合ギミックで、グラスの中身は注いだ材料と量から毎回計算されます。VRでもDesktopでも作れて、作り方を知らない人はタブレットのオートバーから一杯を注文できます。</p>
-  <p class="stamp small">発売前の版です（2026-11-23時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
+  <p class="stamp small">発売前の版です（2026-11-25時点の実装）。商品名、価格、版番号、規約の文面は発売時に確定します。</p>
   <div class="route">
     <p class="small">ワールドに置く方は導入方法から、ワールドで遊ぶ方は遊び方から読んでください。</p>
     <p class="actions"><a class="mb-btn" href="#install">導入方法を読む</a><a class="mb-btn" href="#controls">遊び方を読む</a></p>
@@ -291,7 +291,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <ul class="plain">
   <li>VRChatのPC版（Windows）専用です。ガラスの屈折にGrabPassを使うため、Quest・Android・iOSでは動きません。</li>
   <li>Unity 2022.3.22f1、VRChat SDK - Worlds 3.10.5（UdonSharpを含む）で動作確認しています。</li>
-  <li>VRC Light VolumesとlilToon（どちらもVCCから導入）が必要です。Light Volumesが入っていないとガラスと液体が、lilToonが入っていないと瓶のラベルと金属の道具が表示されません。VRC Light Volumes 2.1.3、lilToon 2.3.4で確認しています。</li>
+  <li>VRC Light VolumesとlilToon（どちらもVCCから導入）が必要です。Light Volumesが入っていないとガラスと液体が、lilToonが入っていないと瓶のラベルと金属の道具が表示されません。VRC Light Volumes 2.1.3、lilToon 2.3.4と2.4.1で確認しています。</li>
   <li>このパッケージだけで動きます。別の商品であるワールド版のカクテルギミックを入れる必要はありません。</li>
   <li>操作はVRとDesktopの両方に対応しています。</li>
 </ul>
@@ -313,7 +313,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
       <tr><td>オートバー</td><td><code>miyaBase_MixAutoBar</code></td></tr>
       <tr><td>道具</td><td>シェーカー <code>miyaBase_MixShaker</code>、ミキシンググラス <code>miyaBase_MixMixingGlass</code>、バースプーン、ジガー、ビーカー、トング、氷バケツ、レモン絞り器 など</td></tr>
       <tr><td>氷・縁・飾り</td><td>丸い氷 <code>miyaBase_MixIceBallBox</code>、ドライアイス <code>miyaBase_MixDryIceBox</code>、塩と砂糖の皿 <code>miyaBase_MixRimPlates</code>、ガーニッシュ <code>miyaBase_MixGarnish_</code> とトレイ <code>miyaBase_MixGarnishTrays</code></td></tr>
-      <tr><td>そのほか</td><td>味と度数の札 <code>miyaBase_MixTasteSwitch</code>、果物の板 <code>miyaBase_MixFruitBoard</code>、エリクシルの木箱 <code>miyaBase_MixElixirCase</code>、コースター <code>miyaBase_MixCoaster</code></td></tr>
+      <tr><td>そのほか</td><td>味と度数の札 <code>miyaBase_MixTasteSwitch</code>、果物の板 <code>miyaBase_MixFruitBoard</code>、エリクシルの木箱 <code>miyaBase_MixElixirCase</code>、コースター <code>miyaBase_MixCoaster</code>、ブルーブレイザー用のマグ <code>miyaBase_MixBlazerMug</code>（2つ置きます）、マッチ <code>miyaBase_MixBlazerMatch</code>、蓋 <code>miyaBase_MixBlazerLid</code></td></tr>
       </tbody>
     </table>
     <p class="note"><b>レシピは置いたもので決まる</b>　材料の瓶とおすすめのグラスがすべて置かれているレシピだけが有効になります。有効なレシピは、グラスにカクテル名が表示され、オートバーの一覧にも並びます。たとえば瓶をジン、トニック、スコッチ、ソーダにしてハイボールグラスを置くと、ジントニックとハイボールが作れます。</p>
@@ -364,6 +364,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
     <tr><td>グラスからグラスへ移す</td><td data-l="Desktop">飲むグラスどうしは移せない（Useは飲む）。ミキシンググラスやビーカー（シェーカーは振ったあと）を持ち、移し先のグラスに視線を合わせてUse</td><td class="vr" data-l="VR">持ったグラスを移し先のグラスの上で傾ける。上の層から移る</td></tr>
     <tr><td>飲む</td><td data-l="Desktop">グラスを持ってUse（ひと口ずつ。ショットはひと口で飲み干す）</td><td class="vr" data-l="VR">口元でグラスを傾ける</td></tr>
     <tr><td>乾杯</td><td colspan="2" data-l="共通">グラス同士を当てると音が鳴る</td></tr>
+    <tr><td>コースターに置く</td><td data-l="Desktop">グラスを持ち、コースターに視線を合わせて離す。中央にまっすぐ立つ</td><td class="vr" data-l="VR">コースターの近くでグラスを離す。中央にまっすぐ立つ</td></tr>
     <tr><td>中身を捨てる</td><td data-l="Desktop">グラスを持ち、流し台に視線を合わせて離す（グラスごと置いた位置へ片付く）</td><td class="vr" data-l="VR">グラスを流し台に入れる。グラスの縁をベルに当てると、中身だけ捨てる</td></tr>
     <tr><td>全部元に戻す</td><td colspan="2" data-l="共通">リセットのベルを押す</td></tr>
   </tbody>
@@ -413,9 +414,9 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
   <li>結露が付くのは、氷が入っているときと、氷で冷やした飲み物を注いだときです。常温の瓶から注いだだけのグラスは結露しません。</li>
 </ul>
 <h3>比重で並んだリキュール</h3>
-<p>リキュールは比重の重い順に並んでいます。重い順に静かに注ぐと、プースカフェのような層が作れます。キュラソーとマラスキーノのように比重がほぼ同じもの同士は、境目がグラデーションになります。</p>
-<div class="gravity" role="img" aria-label="比重の例。グレナデン1.18、バナナ1.12、ブルーキュラソー1.10、マラスキーノ1.10、メロン1.05、ウォッカ0.97">
-  <div>グレナデン<b>1.18</b></div><div>バナナ<b>1.12</b></div><div>キュラソー<b>1.10</b></div><div>マラスキーノ<b>1.10</b></div><div>メロン<b>1.05</b></div><div>ウォッカ<b>0.97</b></div>
+<p>下の一覧は、比重の重い順です。重い順に静かに注ぐと、プースカフェのような層が作れます。キュラソーとマラスキーノのように比重がほぼ同じもの同士は、境目がグラデーションになります。</p>
+<div class="gravity" role="img" aria-label="比重の例。グレナデン1.18、バナナ1.12、ブルーキュラソー1.10、マラスキーノ1.10、メロン1.05、ウォッカ0.95">
+  <div>グレナデン<b>1.18</b></div><div>バナナ<b>1.12</b></div><div>キュラソー<b>1.10</b></div><div>マラスキーノ<b>1.10</b></div><div>メロン<b>1.05</b></div><div>ウォッカ<b>0.95</b></div>
 </div>
 <h3>色が変わる材料</h3>
 <p>バタフライピー・ジンの青は、レモンやライムを入れると紫を経てピンクに変わります。混ぜてあれば速く、層のままならゆっくり変わります。卵白を入れてシェイクすると、白い泡の層がのります。</p>
@@ -425,6 +426,10 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p>ポンタルリエグラスにアブサンを注ぎます。アブサンスプーンをグラスの口に橋渡しするように置き、角砂糖をスプーンに載せます。カラフェの冷水を角砂糖の上から注ぐと、水の筋が沈み、グラスの下から白く濁っていきます。スプーンが載っている間は飲めません。グラスを持ってUseするか大きく傾けると、スプーンが外れます。</p>
 <h3>ハーブのエリクシル</h3>
 <p>木のケースに入った小瓶のハーブリキュールで、数滴ずつ注げます。DesktopではUseの短押しで1回2ml、長押しでゆっくり注がれます。スプーンに載せた角砂糖に垂らすと砂糖が吸い込み、あふれた分だけグラスに入ります。染みた角砂糖は、グラスを持ってUseすると食べられます。</p>
+<h3>ブルーブレイザー</h3>
+<p>マグ2つ、マッチ、蓋を使います。マグにスコッチとお湯を注ぎ、マッチで火をつけます。燃えているマグからもう1つのマグへ注ぐと、青い炎の流れになって移ります。何度か行き来させたら、シンプルシロップを入れたアイリッシュコーヒーグラスへ注ぎ、蓋で火を消します。燃えている間は飲めません。火は45秒ほどで自然に消え、氷を入れても消えます。</p>
+<p>Desktopでは、マッチを持ってマグを見てUseすると火がつきます。燃えているマグを持ち、もう1つのマグに視線を合わせてUseすると注ぎます。空のマグを持って燃えているマグを見てUseすると、受ける側になります。蓋は、持ってグラスを見てUseです。VRでは、マッチをトリガーで擦って頭を液面に近づけ、マグは両手に持って傾け、蓋はグラスの縁にかざします。</p>
+<p>火がつくのは、度数が38%以上のお酒か、お湯で割った18%以上の温かいお酒です。火をつけて作った一杯にだけ「ブルーブレイザー」の名前が付き、火をつけずに同じ配合で作ると「ホット・ウイスキー」になります。オートバーで頼むと、仕上げにグラスが数秒燃えます。</p>
 
 <h2 id="names">名前・味・度数</h2>
 <p>中身の材料の割合が登録済みのレシピに近いと、グラスを指したときの表示がそのカクテルの名前に変わります。割合が外れていれば、表示は「ハイボールグラス」のようなグラスの名前のままです。点数や正解はありません。</p>
@@ -500,7 +505,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <figure><img src="img/garnish.jpg" alt="グラスの縁にレモンとライムの輪切りが付いている" width="800" height="640" loading="lazy"></figure>
 </div>
 <h3>道具</h3>
-<p>シェーカー、ミキシンググラス（ストレーナー付き）、バースプーン、メジャーカップ（45ml/30ml）、ビーカー、レモン絞り器、アイストング、氷バケツ、丸い氷のトレー、ドライアイスの箱、塩と砂糖の皿、アブサンスプーン、角砂糖、流し台、オートバーのタブレット、味と度数の札、リセットのベル。</p>
+<p>シェーカー、ミキシンググラス（ストレーナー付き）、バースプーン、メジャーカップ（45ml/30ml）、ビーカー、レモン絞り器、アイストング、氷バケツ、丸い氷のトレー、ドライアイスの箱、塩と砂糖の皿、アブサンスプーン、角砂糖、ブルーブレイザー用のマグ・マッチ・蓋、コースター、流し台、オートバーのタブレット、味と度数の札、リセットのベル。</p>
 
 <p class="part-h">困ったとき</p>
 
@@ -531,7 +536,7 @@ footer{margin-top:96px;padding-top:var(--space-4);border-top:1px solid var(--lin
 <p>同梱している第三者の素材（フォントのNoto Sans JP、効果音、マットキャップ）の出典とライセンスは、パッケージ内の <code>THIRD_PARTY_NOTICES.txt</code> にあります。</p>
 <p>不具合の報告と要望は、BOOTHのメッセージか要望フォームから受け付けています。報告のときは、Unityのバージョン、SDKのバージョン、VRかDesktopか、起きたことと手順を添えてください。届いた報告にはすべて目を通して返信します。</p>
 
-<footer>miyaBase　カクテル調合ギミック ガイド（下書き 2026-11-23）</footer>
+<footer>miyaBase　カクテル調合ギミック ガイド（下書き 2026-11-26）</footer>
 </main>
 </div>
 <script>
